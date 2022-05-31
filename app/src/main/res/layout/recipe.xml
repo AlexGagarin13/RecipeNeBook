@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing"
+        android:layout_marginEnd="@dimen/common_spacing"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/recipe_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/authorName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="@dimen/middle_priority_text"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="@string/author_name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/recipeCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="@dimen/middle_priority_text"
+        app:layout_constraintStart_toEndOf="@+id/authorName"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:text="@string/recipe_category" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recipeStepsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/authorName"
+        tools:listitem="@layout/recipe_step" />
+
+
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/options"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:contentDescription="Options"-->
+<!--        app:icon="@drawable/ic_options_24dp"-->
+<!--        app:iconGravity="end"-->
+<!--        app:iconTint="@color/black"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/favoriteButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="4dp"-->
+<!--        android:backgroundTint="@android:color/transparent"-->
+<!--        android:clickable="true"-->
+<!--        android:src="@drawable/ic_favorites_border_24dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@id/content" />-->
+
+<!--    <androidx.constraintlayout.widget.Barrier-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/content" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

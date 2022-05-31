@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Neкнига рецептов</string>
+    <string name="recipe_title">Название рецепта</string>
+    <string name="author_name">Имя автора</string>
+    <string name="recipe_category">Категория блюда</string>
+</resources>
