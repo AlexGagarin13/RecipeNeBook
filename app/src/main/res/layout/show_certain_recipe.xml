@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:padding="@dimen/common_spacing">
-
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".ui.RecipeShowCertainFragment">
 
     <TextView
         android:id="@+id/title"
@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="@string/recipe_title_dummy"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +23,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="@string/author_dummy"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/title"
         app:layout_constraintTop_toBottomOf="@id/title" />
@@ -35,7 +33,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="@string/cuisine_type_dummy"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/author"
         app:layout_constraintTop_toBottomOf="@id/author" />
@@ -43,11 +40,10 @@
     <TextView
         android:id="@+id/content"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:clickable="true"
+        android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="@string/cooking_steps_dummy"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/type"
         app:layout_constraintTop_toBottomOf="@id/type" />
@@ -66,12 +62,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:clickable="true"
         android:id="@+id/favoriteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:backgroundTint="@android:color/transparent"
-        android:clickable="true"
         android:src="@drawable/ic_favorites_border_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/content"
@@ -81,6 +77,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/content" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

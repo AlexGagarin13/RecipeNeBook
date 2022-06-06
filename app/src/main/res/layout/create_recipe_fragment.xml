@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.RecipeCreateFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/top_app_bar_empty"
+            app:title="NeRecipe" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_spacing"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="@dimen/small_spacing"
+        android:hint="@string/recipe_name_hint"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
+
+
+    <EditText
+        android:id="@+id/author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_spacing"
+        android:layout_marginEnd="@dimen/small_spacing"
+        android:hint="@string/author_hint"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <EditText
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_spacing"
+        android:layout_marginEnd="@dimen/small_spacing"
+        android:autofillHints=""
+        android:hint="@string/cooking_steps_hint"
+        android:inputType="textMultiLine"
+        app:layout_constraintTop_toBottomOf="@id/author" />
+
+
+    <RadioGroup
+        android:id="@+id/RGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content">
+
+        <RadioButton
+            android:id="@+id/checkBoxEuropean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/european_type" />
+
+        <RadioButton
+            android:id="@+id/checkBoxAsian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/asian_type" />
+
+        <RadioButton
+            android:id="@+id/checkBoxPanasian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/panasian_type" />
+
+        <RadioButton
+            android:id="@+id/checkBoxEastern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eastern_type" />
+
+        <RadioButton
+            android:id="@+id/checkBoxAmerican"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/american_type" />
+
+        <RadioButton
+            android:id="@+id/checkBoxRussian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/russian_type" />
+
+        <RadioButton
+            android:id="@+id/checkBoxMediterranean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mediterranean_type" />
+
+    </RadioGroup>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/save_button_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add_24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

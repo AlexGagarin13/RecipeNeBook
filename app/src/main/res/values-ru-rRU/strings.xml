@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Neкнига рецептов</string>
-    <string name="recipe_title">Название рецепта</string>
-    <string name="author_name">Имя автора</string>
-    <string name="recipe_category">Категория блюда</string>
+    <string name="recipe_name_hint">Название рецепта</string>
+    <string name="author_hint">Автор</string>
+    <string name="cooking_steps_hint">Этапы приготовления </string>
+    <string name="european_type">Европейская</string>
+    <string name="asian_type">Азиатская</string>
+    <string name="panasian_type">Паназиатская</string>
+    <string name="eastern_type">Восточная</string>
+    <string name="american_type">Американская</string>
+    <string name="russian_type">Русская</string>
+    <string name="mediterranean_type">Средиземноморская</string>
+    <string name="save_button_description">Сохранить</string>
+    <string name="recipe_title_dummy">Recipe title</string>
+    <string name="author_dummy">Author</string>
+    <string name="cuisine_type_dummy">Cusine type</string>
+    <string name="cooking_steps_dummy">Cooking steps</string>
+    <string name="options_description">"Options "</string>
+    <string name="it_is_favorite_button_description">"Favorite "</string>
+    <string name="empty_icon_description">Empty</string>
+    <string name="empty_in_favorites">Empty  in favorites</string>
+    <string name="save_description">Save</string>
+
 </resources>

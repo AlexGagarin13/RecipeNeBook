@@ -1,6 +1,23 @@
 <resources>
     <string name="app_name">Recipe NeBook</string>
-    <string name="recipe_title">Recipe title</string>
-    <string name="author_name">Author name</string>
-    <string name="recipe_category">Recipe category</string>
+    <string name="recipe_name_hint">Recipe tittle</string>
+    <string name="author_hint">Author</string>
+    <string name="cooking_steps_hint">Cooking steps</string>
+    <string name="european_type">European</string>
+    <string name="asian_type">Asian</string>
+    <string name="panasian_type">Panasian</string>
+    <string name="eastern_type">Eastern</string>
+    <string name="american_type">American</string>
+    <string name="russian_type">Russian</string>
+    <string name="mediterranean_type">Mediterranean</string>
+    <string name="save_button_description">Save</string>
+    <string name="recipe_title_dummy">Recipe title</string>
+    <string name="author_dummy">Author</string>
+    <string name="cuisine_type_dummy">Cusine type</string>
+    <string name="cooking_steps_dummy">Cooking steps</string>
+    <string name="options_description">"Options "</string>
+    <string name="it_is_favorite_button_description">"Favorite "</string>
+    <string name="empty_icon_description">Empty</string>
+    <string name="empty_in_favorites">Empty  in favorites</string>
+    <string name="save_description">Save</string>
 </resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/feedFragment">
+
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="ru.netology.recipenebook.ui.FeedRecipeFragment">
+        <action
+            android:id="@+id/toFavoriteShowFragment"
+            app:destination="@id/favoriteShowFragment" />
+        <action
+            android:id="@+id/toRecipeCreateFragment"
+            app:destination="@id/recipeCreateFragment" />
+        <action
+            android:id="@+id/toUpdateRecipeFragment"
+            app:destination="@id/updateRecipeFragment" />
+        <action
+            android:id="@+id/toRecipeShowCertainFragment"
+            app:destination="@id/recipeShowCertainFragment" />
+        <action
+            android:id="@+id/toFilterFragment"
+            app:destination="@id/filterFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteShowFragment"
+        android:name="ru.netology.recipenebook.ui.FeedRecipeFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="ru.netology.recipenebook.ui.RecipeFilterFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/updateRecipeFragment"
+        android:name="ru.netology.recipenebook.ui.RecipeUpdateFragment">
+        <argument
+            android:name="initialContent"
+            app:argType="ru.netology.recipenebook.data.Recipe"
+            app:nullable="true" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/recipeCreateFragment"
+        android:name="ru.netology.recipenebook.ui.RecipeCreateFragment"
+        android:label="RecipeCreateFragment" />
+
+    <fragment
+        android:id="@+id/recipeShowCertainFragment"
+        android:name="ru.netology.recipenebook.ui.RecipeShowCertainFragment"
+        android:label="show_certain_recipe"
+        tools:layout="@layout/show_certain_recipe">
+        <argument
+            android:name="showRecipe"
+            app:argType="ru.netology.recipenebook.data.Recipe"
+            app:nullable="true" />
+    </fragment>
+
+    <activity
+        android:id="@+id/appActivity"
+        android:name="ru.netology.recipenebook.ui.AppActivity"
+        android:label="AppActivity" />
+</navigation>

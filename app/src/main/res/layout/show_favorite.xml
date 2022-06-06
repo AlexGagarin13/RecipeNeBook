@@ -17,14 +17,12 @@
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/top_app_bar"
+            app:menu="@menu/top_app_bar_empty"
             app:title="NeRecipe" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+        android:id="@+id/favoriteList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -32,18 +30,6 @@
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="-134dp"
         tools:listitem="@layout/recipe" />
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/add_recipe_description"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add_24dp" />
-
     <ImageView
         android:id="@+id/emptyIcon"
         android:layout_width="wrap_content"
@@ -60,7 +46,7 @@
         android:id="@+id/emptyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/empty_in_recipes"
+        android:text="@string/empty_in_favorites"
         android:visibility="gone"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -74,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/save_a_recipe_advice"
+        android:text="@string/empty_on_fav_advice"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,18 +69,6 @@
         android:textSize="20sp"/>
 
 
-    <Button
-        android:id="@+id/clearFilterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/clear_filter"
-        android:layout_marginBottom="8dp"
-        android:visibility="invisible"
-        tools:visibility="visible"
-        android:backgroundTint="@color/custom_brown"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavBar"
