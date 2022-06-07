@@ -64,8 +64,4 @@
             app:nullable="true" />
     </fragment>
 
-    <activity
-        android:id="@+id/appActivity"
-        android:name="ru.netology.recipenebook.ui.AppActivity"
-        android:label="AppActivity" />
 </navigation>

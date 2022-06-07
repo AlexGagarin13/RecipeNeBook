@@ -12,14 +12,18 @@
     <string name="russian_type">Русская</string>
     <string name="mediterranean_type">Средиземноморская</string>
     <string name="save_button_description">Сохранить</string>
-    <string name="recipe_title_dummy">Recipe title</string>
-    <string name="author_dummy">Author</string>
-    <string name="cuisine_type_dummy">Cusine type</string>
-    <string name="cooking_steps_dummy">Cooking steps</string>
-    <string name="options_description">"Options "</string>
-    <string name="it_is_favorite_button_description">"Favorite "</string>
-    <string name="empty_icon_description">Empty</string>
-    <string name="empty_in_favorites">Empty  in favorites</string>
-    <string name="save_description">Save</string>
-
+    <string name="recipe_title_dummy">Название рецепта</string>
+    <string name="author_dummy">Автор</string>
+    <string name="cuisine_type_dummy">Категория кухни</string>
+    <string name="cooking_steps_dummy">Шаги приготовления</string>
+    <string name="options_description">Опции</string>
+    <string name="it_is_favorite_button_description">Избранное</string>
+    <string name="empty_icon_description">Пусто</string>
+    <string name="empty_in_favorites">Пусто в избранном</string>
+    <string name="save_description">Сохранить</string>
+    <string name="apply_filters">Применить фильтры</string>
+    <string name="empty_on_fav_advice">Нет рецептов для отображения</string>
+    <string name="empty_in_recipes">Нет рецептов для отображения</string>
+    <string name="save_a_recipe_advice">Сохранить рецепт/</string>
+    <string name="clear_filter">Очистить фильтр</string>
 </resources>

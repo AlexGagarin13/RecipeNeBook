@@ -20,4 +20,9 @@
     <string name="empty_icon_description">Empty</string>
     <string name="empty_in_favorites">Empty  in favorites</string>
     <string name="save_description">Save</string>
+    <string name="apply_filters">Apply filters</string>
+    <string name="empty_on_fav_advice">No recipes to show</string>
+    <string name="empty_in_recipes">No recipes to show</string>
+    <string name="save_a_recipe_advice">Save a recipe advice</string>
+    <string name="clear_filter">Clear filter</string>
 </resources>

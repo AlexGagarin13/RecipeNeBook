@@ -1,6 +1,7 @@
 package ru.netology.recipenebook.adapter
 
-import ru.netology.recipenebook.dto.Recipe
+import ru.netology.recipenebook.data.Recipe
+
 
 interface RecipeInteractionListener {
     fun onRemoveClicked(recipe: Recipe)

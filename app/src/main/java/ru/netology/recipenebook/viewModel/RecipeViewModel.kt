@@ -4,8 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.recipenebook.adapter.RecipeInteractionListener
+import ru.netology.recipenebook.data.Recipe
+import ru.netology.recipenebook.data.impl.RecipeRepositoryImpl
 import ru.netology.recipenebook.db.AppDb
-import ru.netology.recipenebook.dto.Recipe
+import ru.netology.recipenebook.repository.RecipeRepository
 import ru.netology.recipenebook.util.SingleLiveEvent
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application),

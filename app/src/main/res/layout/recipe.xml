@@ -6,7 +6,6 @@
     android:background="@android:color/white"
     android:padding="@dimen/common_spacing">
 
-
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"

@@ -101,4 +101,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxMediterranean" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>ayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,17 +2,24 @@ package ru.netology.recipenebook.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import androidx.annotation.DrawableRes
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import ru.netology.recipenebook.R
+import ru.netology.recipenebook.data.Recipe
+import ru.netology.recipenebook.databinding.RecipeBinding
 
 
-class PostsAdapter(
+class RecipeAdapter(
     private val interactionListener: RecipeInteractionListener
 
-) : ListAdapter<Recipe, PostsAdapter.ViewHolder>(DiffCallback) {
+) : ListAdapter<Recipe, RecipeAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = RecipeBinding.inflate(inflater, parent, false)
-
         return ViewHolder(binding, interactionListener)
     }
 
@@ -24,7 +31,6 @@ class PostsAdapter(
         private val binding: RecipeBinding,
         listener: RecipeInteractionListener
     ) : RecyclerView.ViewHolder(binding.root) {
-
 
         private lateinit var recipe: Recipe
 

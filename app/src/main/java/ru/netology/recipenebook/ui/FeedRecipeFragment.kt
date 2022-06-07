@@ -3,9 +3,14 @@ package ru.netology.recipenebook.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import ru.netology.recipenebook.adapter.PostsAdapter
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import ru.netology.recipenebook.R
+import ru.netology.recipenebook.adapter.RecipeAdapter
 import ru.netology.recipenebook.databinding.FeedRecipesBinding
+import ru.netology.recipenebook.viewModel.RecipeViewModel
 
 class FeedRecipeFragment : Fragment(R.layout.feed_recipes) {
 
@@ -61,7 +66,7 @@ class FeedRecipeFragment : Fragment(R.layout.feed_recipes) {
             }
         }
 
-        val adapter = PostsAdapter(viewModel)
+        val adapter = RecipeAdapter(viewModel)
         binding.list.adapter = adapter
 
         viewModel.data.observe(viewLifecycleOwner) { recipes ->
