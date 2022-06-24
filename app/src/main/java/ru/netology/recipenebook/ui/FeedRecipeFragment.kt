@@ -50,6 +50,12 @@ class FeedRecipeFragment : Fragment(R.layout.feed_recipes) {
             findNavController().navigate(directions)
         }
 
+        //Search
+        viewModel.navigateToRecipeSearchScreenEvent.observe(this) {
+            val directions = FeedRecipeFragmentDirections.toRecipeSearchFragment()
+            findNavController().navigate(directions)
+        }
+
     }
 
     override fun onCreateView(
@@ -58,14 +64,6 @@ class FeedRecipeFragment : Fragment(R.layout.feed_recipes) {
         savedInstanceState: Bundle?
     ) = FeedRecipesBinding.inflate(layoutInflater, container, false).also { binding ->
 
-        viewModel.data.observe(viewLifecycleOwner) { recipes ->
-            if (!viewModel.filterIsActive) {
-                binding.emptyText.isVisible = recipes.isEmpty()
-                binding.emptyTextMessage.isVisible = recipes.isEmpty()
-                binding.emptyIcon.isVisible = recipes.isEmpty()
-            }
-        }
-
         val adapter = RecipeAdapter(viewModel)
         binding.list.adapter = adapter
 
@@ -73,15 +71,44 @@ class FeedRecipeFragment : Fragment(R.layout.feed_recipes) {
             adapter.submitList(recipes)
         }
 
+        //Search hints (buttons) and Filters visibility logic
+        viewModel.data.observe(viewLifecycleOwner) { recipes ->
+            if (!viewModel.filterIsActive) {
+                binding.hintGroup.isVisible = recipes.isEmpty()
+            }
+            if (viewModel.firstRunApp) {
+                binding.clearFilterButton.isVisible = false
+                binding.clearSearchButton.isVisible = false
+            }
+            if (viewModel.searchIsActive) {
+                binding.clearSearchButton.isVisible = true
+            }
+            if (viewModel.filterIsActive) {
+                binding.clearFilterButton.isVisible = true
+            }
+        }
         //Filter button visibility logic
         if (viewModel.filterIsActive) {
             binding.clearFilterButton.isVisible = viewModel.filterIsActive
             binding.clearFilterButton.setOnClickListener {
-                viewModel.filterIsActive = false
                 viewModel.clearFilter()
+                viewModel.filterIsActive = false
                 binding.clearFilterButton.isVisible = false
-                viewModel.data.observe(viewLifecycleOwner) { posts ->
-                    adapter.submitList(posts)
+                viewModel.data.observe(viewLifecycleOwner) { recipes ->
+                    adapter.submitList(recipes)
+                }
+            }
+        }
+
+        //Search feature visibility logic
+        if (viewModel.searchIsActive) {
+            binding.clearSearchButton.isVisible = viewModel.searchIsActive
+            binding.clearSearchButton.setOnClickListener {
+                viewModel.clearFilter()
+                viewModel.searchIsActive = false
+                binding.hintGroup.isVisible = false
+                viewModel.data.observe(viewLifecycleOwner) { recipes ->
+                    adapter.submitList(recipes)
                 }
             }
         }
@@ -101,6 +128,10 @@ class FeedRecipeFragment : Fragment(R.layout.feed_recipes) {
             when (menuItem.itemId) {
                 R.id.filter -> {
                     viewModel.navigateToRecipeFilterScreenEvent.call()
+                    true
+                }
+                R.id.search -> {
+                    viewModel.navigateToRecipeSearchScreenEvent.call()
                     true
                 }
                 else -> false

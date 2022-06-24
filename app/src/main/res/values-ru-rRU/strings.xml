@@ -26,4 +26,11 @@
     <string name="empty_in_recipes">Нет рецептов для отображения</string>
     <string name="save_a_recipe_advice">Сохранить рецепт/</string>
     <string name="clear_filter">Очистить фильтр</string>
+    <string name="search_hint">Поиск</string>
+    <string name="search_action">Поиск</string>
+    <string name="show_all">Show all</string>
+    <string name="search">Search</string>
+    <string name="search_top_menu">Search</string>
+    <string name="step">Step</string>
+    <string name="back">Back</string>
 </resources>

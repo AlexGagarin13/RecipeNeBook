@@ -20,6 +20,8 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
     val data by repository::data
 
     var filterIsActive:Boolean = false
+    var searchIsActive: Boolean = false
+    var firstRunApp: Boolean = true
 
 
     //SingleLiveEvents
@@ -28,6 +30,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
     val navigateToRecipeUpdateScreenEvent = SingleLiveEvent<String?>()
     val navigateToRecipeShowScreenEvent = SingleLiveEvent<Unit>()
     val navigateToRecipeFilterScreenEvent = SingleLiveEvent<Unit>()
+    val navigateToRecipeSearchScreenEvent = SingleLiveEvent<Unit>()
 
     //Data
     val updateRecipe = MutableLiveData<Recipe>(null)
@@ -111,6 +114,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
 
 
     override fun onCreateClicked() {
+        firstRunApp = false
         navigateToRecipeCreateScreenEvent.call()
     }
 
@@ -130,5 +134,10 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
     override fun onShowRecipeClicked(recipe: Recipe) {
         showRecipe.value = recipe
         navigateToRecipeShowScreenEvent.call()
+    }
+
+    fun searchRecipeByTitle(recipeTitle: String) {
+        repository.search(recipeTitle)
+        searchIsActive = true
     }
 }

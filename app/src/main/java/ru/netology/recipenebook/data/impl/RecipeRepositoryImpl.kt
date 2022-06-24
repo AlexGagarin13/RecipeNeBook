@@ -88,4 +88,8 @@ class RecipeRepositoryImpl(
             it.filter { it.type != type }
         }
     }
+
+    override fun search(recipeTitle: String) {
+        data = data.map { it.filter { it.title == recipeTitle } }
+    }
 }

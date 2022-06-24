@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:padding="@dimen/common_spacing">
+    android:padding="16dp">
+
 
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
         android:text="@string/recipe_title_dummy"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +20,6 @@
         android:id="@+id/author"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
         android:text="@string/author_dummy"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/title"
@@ -32,8 +29,6 @@
         android:id="@+id/type"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
         android:text="@string/cuisine_type_dummy"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/author"
@@ -44,8 +39,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:ellipsize="end"
-        android:singleLine="true"
         android:text="@string/cooking_steps_dummy"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/type"
@@ -80,6 +73,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/content" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

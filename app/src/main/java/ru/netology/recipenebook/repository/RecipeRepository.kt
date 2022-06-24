@@ -22,6 +22,8 @@ interface RecipeRepository {
     fun showRussian(type: String)
     fun showMediterranean(type: String)
 
+    //Search
+    fun search(recipeTitle: String)
 
     //For correct ID generation
     companion object{

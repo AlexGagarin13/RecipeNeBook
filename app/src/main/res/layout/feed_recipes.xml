@@ -29,9 +29,8 @@
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="-134dp"
-        tools:listitem="@layout/recipe" />
+        tools:listitem="@layout/recipe"
+       />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,7 +41,6 @@
         app:layout_constraintBottom_toTopOf="@id/bottomNavBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_24dp" />
-
     <ImageView
         android:id="@+id/emptyIcon"
         android:layout_width="wrap_content"
@@ -68,6 +66,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
+
     <TextView
         android:id="@+id/emptyTextMessage"
         android:layout_width="wrap_content"
@@ -81,7 +80,6 @@
         tools:visibility="visible"
         android:textSize="20sp"/>
 
-
     <Button
         android:id="@+id/clearFilterButton"
         android:layout_width="wrap_content"
@@ -94,6 +92,28 @@
         app:layout_constraintBottom_toTopOf="@id/bottomNavBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/clearSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_all"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:backgroundTint="@color/custom_brown"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hintGroup"
+        tools:visibility="visible"
+        android:visibility="gone"
+        app:constraint_referenced_ids="clearFilterButton,clearSearchButton,emptyIcon,emptyText,emptyTextMessage"
+        />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavBar"

@@ -25,4 +25,11 @@
     <string name="empty_in_recipes">No recipes to show</string>
     <string name="save_a_recipe_advice">Save a recipe advice</string>
     <string name="clear_filter">Clear filter</string>
+    <string name="search_hint">Search</string>
+    <string name="search_action">Search</string>
+    <string name="show_all">Show all</string>
+    <string name="search">Search</string>
+    <string name="search_top_menu">Search</string>
+    <string name="step">Step</string>
+    <string name="back">Back</string>
 </resources>

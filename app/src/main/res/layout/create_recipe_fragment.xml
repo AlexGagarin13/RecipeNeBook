@@ -15,20 +15,22 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:title="NeRecipe"
             app:menu="@menu/top_app_bar_empty"
-            app:title="NeRecipe" />
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            />
     </com.google.android.material.appbar.AppBarLayout>
+
 
     <EditText
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_spacing"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="@dimen/small_spacing"
+        android:layout_marginEnd="8dp"
         android:hint="@string/recipe_name_hint"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
@@ -37,8 +39,8 @@
         android:id="@+id/author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_spacing"
-        android:layout_marginEnd="@dimen/small_spacing"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:hint="@string/author_hint"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -46,8 +48,8 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_spacing"
-        android:layout_marginEnd="@dimen/small_spacing"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:autofillHints=""
         android:hint="@string/cooking_steps_hint"
         android:inputType="textMultiLine"
