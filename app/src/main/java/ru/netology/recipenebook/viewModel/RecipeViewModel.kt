@@ -16,13 +16,9 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
     private val repository: RecipeRepository =
         RecipeRepositoryImpl(dao = AppDb.getInstance(context = application).recipeDao)
 
-    //для получения get()
     val data by repository::data
 
-    var filterIsActive:Boolean = false
-    var searchIsActive: Boolean = false
-    var firstRunApp: Boolean = true
-
+    var filterIsActive: Boolean = false
 
     //SingleLiveEvents
     val navigateToShowFavorite = SingleLiveEvent<String>()
@@ -30,16 +26,13 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
     val navigateToRecipeUpdateScreenEvent = SingleLiveEvent<String?>()
     val navigateToRecipeShowScreenEvent = SingleLiveEvent<Unit>()
     val navigateToRecipeFilterScreenEvent = SingleLiveEvent<Unit>()
-    val navigateToRecipeSearchScreenEvent = SingleLiveEvent<Unit>()
+
 
     //Data
     val updateRecipe = MutableLiveData<Recipe>(null)
     val showRecipe = MutableLiveData<Recipe?>(null)
+    val feedFragment = data
     private val currentRecipe = MutableLiveData<Recipe?>(null)
-
-    /**
-     * Filter Section
-     */
 
     fun showEuropean(type: String) {
         repository.showEuropean(type)
@@ -80,7 +73,6 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
         repository.getData()
     }
 
-
     override fun updateContent(
         id: Long,
         title: String,
@@ -103,7 +95,6 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
     }
 
     override fun onEditClicked(recipe: Recipe) {
-        // тут лежит обновляемый пост
         updateRecipe.value = recipe
         navigateToRecipeUpdateScreenEvent.call()
     }
@@ -112,9 +103,11 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
         repository.favorite(recipeId)
     }
 
+    override fun onSearchClicked(text: String) {
+        repository.searchText(text)
+    }
 
     override fun onCreateClicked() {
-        firstRunApp = false
         navigateToRecipeCreateScreenEvent.call()
     }
 
@@ -136,8 +129,4 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application),
         navigateToRecipeShowScreenEvent.call()
     }
 
-    fun searchRecipeByTitle(recipeTitle: String) {
-        repository.search(recipeTitle)
-        searchIsActive = true
-    }
 }

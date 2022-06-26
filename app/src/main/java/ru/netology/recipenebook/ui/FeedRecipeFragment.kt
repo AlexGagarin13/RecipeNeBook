@@ -1,8 +1,11 @@
 package ru.netology.recipenebook.ui
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -49,13 +52,6 @@ class FeedRecipeFragment : Fragment(R.layout.feed_recipes) {
             val directions = FeedRecipeFragmentDirections.toFilterFragment()
             findNavController().navigate(directions)
         }
-
-        //Search
-        viewModel.navigateToRecipeSearchScreenEvent.observe(this) {
-            val directions = FeedRecipeFragmentDirections.toRecipeSearchFragment()
-            findNavController().navigate(directions)
-        }
-
     }
 
     override fun onCreateView(
@@ -71,71 +67,57 @@ class FeedRecipeFragment : Fragment(R.layout.feed_recipes) {
             adapter.submitList(recipes)
         }
 
-        //Search hints (buttons) and Filters visibility logic
-        viewModel.data.observe(viewLifecycleOwner) { recipes ->
-            if (!viewModel.filterIsActive) {
-                binding.hintGroup.isVisible = recipes.isEmpty()
-            }
-            if (viewModel.firstRunApp) {
-                binding.clearFilterButton.isVisible = false
-                binding.clearSearchButton.isVisible = false
-            }
-            if (viewModel.searchIsActive) {
-                binding.clearSearchButton.isVisible = true
-            }
-            if (viewModel.filterIsActive) {
-                binding.clearFilterButton.isVisible = true
-            }
-        }
-        //Filter button visibility logic
         if (viewModel.filterIsActive) {
             binding.clearFilterButton.isVisible = viewModel.filterIsActive
             binding.clearFilterButton.setOnClickListener {
                 viewModel.clearFilter()
                 viewModel.filterIsActive = false
-                binding.clearFilterButton.isVisible = false
+                binding.clearFilterButton.visibility = View.GONE
                 viewModel.data.observe(viewLifecycleOwner) { recipes ->
                     adapter.submitList(recipes)
                 }
             }
-        }
+        } else {
+            binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
-        //Search feature visibility logic
-        if (viewModel.searchIsActive) {
-            binding.clearSearchButton.isVisible = viewModel.searchIsActive
-            binding.clearSearchButton.setOnClickListener {
-                viewModel.clearFilter()
-                viewModel.searchIsActive = false
-                binding.hintGroup.isVisible = false
-                viewModel.data.observe(viewLifecycleOwner) { recipes ->
-                    adapter.submitList(recipes)
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
                 }
-            }
-        }
 
-        binding.bottomNavBar.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.favorites -> viewModel.navigateToShowFavorite.call()
-            }
-            true
-        }
+                override fun onQueryTextChange(newText: String): Boolean {
 
-        binding.fab.setOnClickListener {
-            viewModel.onCreateClicked()
+                    if (newText.isNotBlank()) {
+                        viewModel.onSearchClicked(newText)
+                        viewModel.data.observe(viewLifecycleOwner) { recipe ->
+                            adapter.submitList(recipe)
+                        }
+                    }
+                    if (TextUtils.isEmpty(newText)) {
+                        viewModel.clearFilter()
+                        viewModel.data.observe(viewLifecycleOwner) { recipe ->
+                            adapter.submitList(recipe)
+                        }
+                    }
+                    return false
+                }
+            })
         }
-
-        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+        binding.bottomNavBar.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.favorites -> {
+                    viewModel.navigateToShowFavorite.call()
+                    true
+                }
                 R.id.filter -> {
                     viewModel.navigateToRecipeFilterScreenEvent.call()
                     true
                 }
-                R.id.search -> {
-                    viewModel.navigateToRecipeSearchScreenEvent.call()
-                    true
-                }
                 else -> false
             }
+        }
+
+        binding.fab.setOnClickListener {
+            viewModel.onCreateClicked()
         }
     }.root
 }

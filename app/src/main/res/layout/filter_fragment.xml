@@ -18,8 +18,7 @@
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/top_app_bar_empty"
-            app:title="NeRecipe" />
+            app:title="@string/app_name" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <CheckBox
@@ -28,6 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:checked="true"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/european_type"
         app:layout_constraintEnd_toEndOf="@id/applyFilterBtn"
         app:layout_constraintStart_toStartOf="@id/applyFilterBtn"
@@ -39,6 +40,7 @@
         android:layout_height="wrap_content"
         android:checked="true"
         android:clickable="true"
+        android:focusable="true"
         android:text="@string/asian_type"
         app:layout_constraintStart_toStartOf="@+id/checkBoxEuropean"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxEuropean" />
@@ -48,6 +50,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/panasian_type"
         app:layout_constraintStart_toStartOf="@+id/checkBoxAsian"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxAsian" />
@@ -57,6 +61,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/eastern_type"
         app:layout_constraintStart_toStartOf="@+id/checkBoxPanasian"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxPanasian" />
@@ -66,6 +72,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/american_type"
         app:layout_constraintStart_toStartOf="@+id/checkBoxEastern"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxEastern" />
@@ -75,6 +83,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/russian_type"
         app:layout_constraintStart_toStartOf="@+id/checkBoxAmerican"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxAmerican" />
@@ -84,6 +94,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/mediterranean_type"
         app:layout_constraintStart_toStartOf="@+id/checkBoxRussian"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxRussian" />
@@ -95,8 +107,9 @@
         android:layout_marginTop="21dp"
         android:backgroundTint="@android:color/white"
         android:clickable="true"
+        android:focusable="true"
         android:text="@string/apply_filters"
-        android:textColor="@color/custom_brown"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxMediterranean" />

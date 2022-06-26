@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Neкнига рецептов</string>
+    <string name="recipe_title_dummy">Название рецепта</string>
+    <string name="author_dummy">Автор</string>
+    <string name="cuisine_type_dummy">Категория кухни</string>
+    <string name="cooking_steps_dummy">Этапы приготовления</string>
+    <string name="options_description">Опции</string>
+    <string name="it_is_favorite_button_description">Избранное</string>
+    <string name="add_recipe">Добавить рецепт</string>
+    <string name="clear_filter">Очистить фильтр</string>
+    <string name="all_recipes">Все рецепты</string>
+    <string name="favorites">Избранные</string>
+    <string name="filter">Фильтр</string>
     <string name="recipe_name_hint">Название рецепта</string>
     <string name="author_hint">Автор</string>
     <string name="cooking_steps_hint">Этапы приготовления </string>
@@ -12,25 +23,12 @@
     <string name="russian_type">Русская</string>
     <string name="mediterranean_type">Средиземноморская</string>
     <string name="save_button_description">Сохранить</string>
-    <string name="recipe_title_dummy">Название рецепта</string>
-    <string name="author_dummy">Автор</string>
-    <string name="cuisine_type_dummy">Категория кухни</string>
-    <string name="cooking_steps_dummy">Шаги приготовления</string>
-    <string name="options_description">Опции</string>
-    <string name="it_is_favorite_button_description">Избранное</string>
-    <string name="empty_icon_description">Пусто</string>
-    <string name="empty_in_favorites">Пусто в избранном</string>
-    <string name="save_description">Сохранить</string>
     <string name="apply_filters">Применить фильтры</string>
-    <string name="empty_on_fav_advice">Нет рецептов для отображения</string>
-    <string name="empty_in_recipes">Нет рецептов для отображения</string>
-    <string name="save_a_recipe_advice">Сохранить рецепт/</string>
-    <string name="clear_filter">Очистить фильтр</string>
-    <string name="search_hint">Поиск</string>
-    <string name="search_action">Поиск</string>
-    <string name="show_all">Show all</string>
-    <string name="search">Search</string>
-    <string name="search_top_menu">Search</string>
-    <string name="step">Step</string>
-    <string name="back">Back</string>
+    <string name="save_description">Сохранить</string>
+    <string name="remove">Удалить</string>
+    <string name="edit">Править</string>
+    <string name="empty_icon_description">Нет рецептов</string>
+    <string name="empty_in_favorites">Нет рецептов</string>
+    <string name="search">Искать</string>
+
 </resources>

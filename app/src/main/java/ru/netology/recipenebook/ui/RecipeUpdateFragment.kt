@@ -25,7 +25,7 @@ class RecipeUpdateFragment : Fragment() {
     ) = UpdateRecipeFragmentBinding.inflate(layoutInflater, container, false).also { binding ->
         render(binding)
 
-        binding.RGroup.setOnCheckedChangeListener { radioGroup, i ->
+        binding.rGroup.setOnCheckedChangeListener { _, i ->
             when (i) {
                 R.id.checkBoxEuropean -> type = "European"
                 R.id.checkBoxAsian -> type = "Asian"
@@ -37,12 +37,12 @@ class RecipeUpdateFragment : Fragment() {
             }
         }
 
-        binding.ok.setOnClickListener {
-            onOkButtonClicked(binding)
+        binding.saveButton.setOnClickListener {
+            onSaveButtonClicked(binding)
         }
     }.root
 
-    private fun onOkButtonClicked(binding: UpdateRecipeFragmentBinding) {
+    private fun onSaveButtonClicked(binding: UpdateRecipeFragmentBinding) {
 
         val id = args.initialContent!!.id
         val recipeName = binding.title.text.toString()

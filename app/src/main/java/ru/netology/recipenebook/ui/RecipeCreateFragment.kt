@@ -21,11 +21,11 @@ class RecipeCreateFragment : Fragment() {
         savedInstanceState: Bundle?
     ) = CreateRecipeFragmentBinding.inflate(layoutInflater, container, false).also { binding ->
 
-        binding.ok.setOnClickListener {
-            onOkButtonClicked(binding)
+        binding.saveButton.setOnClickListener {
+            onSaveButtonClicked(binding)
         }
 
-        binding.RGroup.setOnCheckedChangeListener { radioGroup, i ->
+        binding.rGroup.setOnCheckedChangeListener { _, i ->
             when (i) {
                 R.id.checkBoxEuropean -> type = "European"
                 R.id.checkBoxAsian -> type = "Asian"
@@ -38,7 +38,7 @@ class RecipeCreateFragment : Fragment() {
         }
     }.root
 
-    private fun onOkButtonClicked(binding: CreateRecipeFragmentBinding) {
+    private fun onSaveButtonClicked(binding: CreateRecipeFragmentBinding) {
 
         val title = binding.title.text.toString()
         val author = binding.author.text.toString()

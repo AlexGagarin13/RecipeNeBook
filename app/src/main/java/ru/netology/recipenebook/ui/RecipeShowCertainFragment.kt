@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import ru.netology.recipenebook.R
 import ru.netology.recipenebook.databinding.ShowCertainRecipeBinding
 
 class RecipeShowCertainFragment : Fragment() {
@@ -15,6 +17,12 @@ class RecipeShowCertainFragment : Fragment() {
         savedInstanceState: Bundle?
     ) = ShowCertainRecipeBinding.inflate(layoutInflater, container, false).also { binding ->
         render(binding)
+        binding.bottomToolbar.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.feed -> findNavController().popBackStack()
+            }
+            true
+        }
     }.root
 
     private fun render(binding: ShowCertainRecipeBinding) {

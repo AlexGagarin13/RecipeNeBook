@@ -24,10 +24,9 @@ class RecipeFavoriteShowFragment : Fragment() {
 
         viewModel.data.observe(viewLifecycleOwner) { recipes ->
 
-            val favRecipes = recipes.filter { it.isFavorite }.isEmpty()
+            val favRecipes = recipes.none { it.isFavorite }
             if (favRecipes) {
                 binding.emptyText.isVisible = favRecipes
-                binding.emptyTextMessage.isVisible = favRecipes
                 binding.emptyIcon.isVisible = favRecipes
             }
         }
@@ -35,8 +34,8 @@ class RecipeFavoriteShowFragment : Fragment() {
         val adapter = RecipeAdapter(viewModel)
         binding.favoriteList.adapter = adapter
 
-        viewModel.data.observe(viewLifecycleOwner) { posts ->
-            val favRecipes = posts.filter { it.isFavorite }
+        viewModel.data.observe(viewLifecycleOwner) { recipes ->
+            val favRecipes = recipes.filter { it.isFavorite }
             adapter.submitList(favRecipes)
         }
 
@@ -46,5 +45,46 @@ class RecipeFavoriteShowFragment : Fragment() {
             }
             true
         }
+
+        binding.bottomNavBar.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.favorites -> {
+                    viewModel.navigateToShowFavorite.call()
+                    true
+                }
+                R.id.filter -> {
+                    viewModel.navigateToRecipeFilterScreenEvent.call()
+                    true
+                }
+                R.id.feed -> {
+                    viewModel.feedFragment.observe(viewLifecycleOwner) {
+                        findNavController().popBackStack()
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
     }.root
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.navigateToRecipeUpdateScreenEvent.observe(this) {
+            val updatedRecipe = viewModel.updateRecipe.value
+            val directions = FeedRecipeFragmentDirections.toUpdateRecipeFragment(updatedRecipe)
+            findNavController().navigate(directions)
+        }
+
+        viewModel.navigateToRecipeShowScreenEvent.observe(this) {
+            val viewRecipe = viewModel.showRecipe.value
+            val directions = FeedRecipeFragmentDirections.toRecipeShowCertainFragment(viewRecipe)
+            findNavController().navigate(directions)
+        }
+
+        viewModel.navigateToRecipeFilterScreenEvent.observe(this) {
+            val directions = FeedRecipeFragmentDirections.toFilterFragment()
+            findNavController().navigate(directions)
+        }
+    }
 }

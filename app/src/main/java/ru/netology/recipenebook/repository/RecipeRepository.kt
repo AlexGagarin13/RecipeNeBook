@@ -12,6 +12,7 @@ interface RecipeRepository {
     fun delete(recipe: Recipe)
     fun favorite(long: Long)
     fun getData()
+    fun searchText(Text: String)
 
     //Filter Section
     fun showEuropean(type: String)
@@ -22,11 +23,8 @@ interface RecipeRepository {
     fun showRussian(type: String)
     fun showMediterranean(type: String)
 
-    //Search
-    fun search(recipeTitle: String)
 
-    //For correct ID generation
-    companion object{
+    companion object {
         const val NEW_RECIPE_ID = 0L
     }
 }

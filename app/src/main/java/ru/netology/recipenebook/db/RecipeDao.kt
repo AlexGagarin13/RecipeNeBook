@@ -7,21 +7,24 @@ import androidx.room.Query
 
 @Dao
 interface RecipeDao {
-    @Query("SELECT * FROM recipes ORDER BY id DESC")
+    @Query("SELECT * FROM recipes")
     fun getAll(): LiveData<List<RecipeEntity>>
 
     @Insert
     fun save(recipe: RecipeEntity)
 
-    @Query("UPDATE recipes SET " +
-            "title = :content," +
-            " author = :title, " +
-            "type = :type," +
-            " content = :author" +
-            " WHERE id = :id")
+    @Query(
+        "UPDATE recipes SET " +
+                "title = :content," +
+                " author = :title, " +
+                "type = :type," +
+                " content = :author" +
+                " WHERE id = :id"
+    )
     fun updateContentById(
         id: Long, content: String, title: String,
-        author: String, type: String)
+        author: String, type: String
+    )
 
     @Query(
         """
@@ -35,8 +38,9 @@ interface RecipeDao {
     @Query("DELETE FROM recipes WHERE id = :id")
     fun removeById(id: Long)
 
-    //Filter Section
     @Query("SELECT * FROM recipes WHERE type = :type")
     fun getEuropean(type: String): LiveData<List<RecipeEntity>>
 
+    @Query("SELECT * FROM recipes WHERE title LIKE '%' || :text || '%'")
+    fun searchByText(text: String): LiveData<List<RecipeEntity>>
 }

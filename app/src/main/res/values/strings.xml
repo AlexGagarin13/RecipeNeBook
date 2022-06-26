@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">Recipe NeBook</string>
+    <string name="recipe_title_dummy">Recipe title</string>
+    <string name="author_dummy">Author</string>
+    <string name="cuisine_type_dummy">Cuisine type</string>
+    <string name="cooking_steps_dummy">Cooking steps</string>
+    <string name="options_description">Options</string>
+    <string name="it_is_favorite_button_description">Favorite</string>
+    <string name="add_recipe">Add recipe</string>
+    <string name="clear_filter">Clear filter</string>
+    <string name="all_recipes">All Recipes</string>
+    <string name="favorites">Favorites</string>
+    <string name="filter">Filter</string>
     <string name="recipe_name_hint">Recipe tittle</string>
     <string name="author_hint">Author</string>
     <string name="cooking_steps_hint">Cooking steps</string>
@@ -11,25 +22,13 @@
     <string name="russian_type">Russian</string>
     <string name="mediterranean_type">Mediterranean</string>
     <string name="save_button_description">Save</string>
-    <string name="recipe_title_dummy">Recipe title</string>
-    <string name="author_dummy">Author</string>
-    <string name="cuisine_type_dummy">Cusine type</string>
-    <string name="cooking_steps_dummy">Cooking steps</string>
-    <string name="options_description">"Options "</string>
-    <string name="it_is_favorite_button_description">"Favorite "</string>
-    <string name="empty_icon_description">Empty</string>
-    <string name="empty_in_favorites">Empty  in favorites</string>
-    <string name="save_description">Save</string>
     <string name="apply_filters">Apply filters</string>
-    <string name="empty_on_fav_advice">No recipes to show</string>
-    <string name="empty_in_recipes">No recipes to show</string>
-    <string name="save_a_recipe_advice">Save a recipe advice</string>
-    <string name="clear_filter">Clear filter</string>
-    <string name="search_hint">Search</string>
-    <string name="search_action">Search</string>
-    <string name="show_all">Show all</string>
+    <string name="save_description">Save</string>
+    <string name="remove">Remove</string>
+    <string name="edit">Edit</string>
+    <string name="empty_icon_description">Nothing to show</string>
+    <string name="empty_in_favorites">Nothing to show</string>
     <string name="search">Search</string>
-    <string name="search_top_menu">Search</string>
-    <string name="step">Step</string>
-    <string name="back">Back</string>
+
+
 </resources>

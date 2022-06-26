@@ -13,5 +13,4 @@ data class Recipe(
     val content: String,
     val type: String,
     val isFavorite: Boolean = false,
-) : Parcelable {
-}
+) : Parcelable

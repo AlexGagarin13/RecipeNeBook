@@ -42,9 +42,12 @@ class RecipeRepositoryImpl(
         dao.favById(long)
     }
 
-    /**
-    Filter Section
-     */
+    override fun searchText(Text: String) {
+        data = dao.searchByText(Text).map { entities ->
+            entities.map { it.toModel() }
+        }
+    }
+
     override fun showEuropean(type: String) {
         data = dao.getAll().map { entities ->
             entities.map { it.toModel() }.filter { it.type != type }
@@ -89,7 +92,4 @@ class RecipeRepositoryImpl(
         }
     }
 
-    override fun search(recipeTitle: String) {
-        data = data.map { it.filter { it.title == recipeTitle } }
-    }
 }

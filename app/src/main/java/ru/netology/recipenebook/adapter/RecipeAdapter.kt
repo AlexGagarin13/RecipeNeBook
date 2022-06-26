@@ -36,7 +36,7 @@ class RecipeAdapter(
 
         private val popupMenu by lazy {
             PopupMenu(itemView.context, binding.options).apply {
-                inflate(R.menu.recipe_menu)
+                inflate(R.menu.option_menu)
                 setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
                         R.id.remove -> {
@@ -65,9 +65,23 @@ class RecipeAdapter(
                 favoriteButton.setOnClickListener {
                     interactionListener.onFavoriteClicked(recipe.id)
                 }
+
+                title.setOnClickListener {
+                    interactionListener.onShowRecipeClicked(recipe)
+                }
+
+                author.setOnClickListener {
+                    interactionListener.onShowRecipeClicked(recipe)
+                }
+
                 content.setOnClickListener {
                     interactionListener.onShowRecipeClicked(recipe)
                 }
+
+                type.setOnClickListener {
+                    interactionListener.onShowRecipeClicked(recipe)
+                }
+
                 options.setOnClickListener {
                     popupMenu.show()
                 }
