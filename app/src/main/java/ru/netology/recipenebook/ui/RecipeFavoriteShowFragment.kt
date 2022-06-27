@@ -16,6 +16,27 @@ class RecipeFavoriteShowFragment : Fragment() {
 
     private val viewModel by activityViewModels<RecipeViewModel>()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.navigateToRecipeUpdateScreenEvent.observe(this) {
+            val updatedRecipe = viewModel.updateRecipe.value
+            val directions = FeedRecipeFragmentDirections.toUpdateRecipeFragment(updatedRecipe)
+            findNavController().navigate(directions)
+        }
+
+        viewModel.navigateToRecipeShowScreenEvent.observe(this) {
+            val viewRecipe = viewModel.showRecipe.value
+            val directions = FeedRecipeFragmentDirections.toRecipeShowCertainFragment(viewRecipe)
+            findNavController().navigate(directions)
+        }
+
+        viewModel.navigateToRecipeFilterScreenEvent.observe(this) {
+            val directions = FeedRecipeFragmentDirections.toFilterFragment()
+            findNavController().navigate(directions)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -66,25 +87,4 @@ class RecipeFavoriteShowFragment : Fragment() {
             }
         }
     }.root
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel.navigateToRecipeUpdateScreenEvent.observe(this) {
-            val updatedRecipe = viewModel.updateRecipe.value
-            val directions = FeedRecipeFragmentDirections.toUpdateRecipeFragment(updatedRecipe)
-            findNavController().navigate(directions)
-        }
-
-        viewModel.navigateToRecipeShowScreenEvent.observe(this) {
-            val viewRecipe = viewModel.showRecipe.value
-            val directions = FeedRecipeFragmentDirections.toRecipeShowCertainFragment(viewRecipe)
-            findNavController().navigate(directions)
-        }
-
-        viewModel.navigateToRecipeFilterScreenEvent.observe(this) {
-            val directions = FeedRecipeFragmentDirections.toFilterFragment()
-            findNavController().navigate(directions)
-        }
-    }
 }

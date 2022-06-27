@@ -15,7 +15,7 @@ import ru.netology.recipenebook.adapter.RecipeAdapter
 import ru.netology.recipenebook.databinding.FeedRecipesBinding
 import ru.netology.recipenebook.viewModel.RecipeViewModel
 
-class FeedRecipeFragment : Fragment(R.layout.feed_recipes) {
+class FeedRecipeFragment : Fragment() {
 
     private val viewModel by activityViewModels<RecipeViewModel>()
 
@@ -60,12 +60,20 @@ class FeedRecipeFragment : Fragment(R.layout.feed_recipes) {
         savedInstanceState: Bundle?
     ) = FeedRecipesBinding.inflate(layoutInflater, container, false).also { binding ->
 
+        viewModel.data.observe(viewLifecycleOwner) { recipes ->
+            if (!viewModel.filterIsActive) {
+                binding.emptyText.isVisible = recipes.isEmpty()
+                binding.emptyIcon.isVisible = recipes.isEmpty()
+            }
+        }
+
         val adapter = RecipeAdapter(viewModel)
         binding.list.adapter = adapter
 
         viewModel.data.observe(viewLifecycleOwner) { recipes ->
             adapter.submitList(recipes)
         }
+
 
         if (viewModel.filterIsActive) {
             binding.clearFilterButton.isVisible = viewModel.filterIsActive
