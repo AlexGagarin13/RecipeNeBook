@@ -1,85 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipe_card_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:padding="@dimen/common_spacing">
+    android:padding="@dimen/small_spacing"
+    android:paddingBottom="@dimen/small_spacing"
+    tools:context=".ui.RecipeShowFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:padding="@dimen/small_spacing"
         android:singleLine="true"
         android:text="@string/recipe_title_dummy"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/imageMore"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/imageMore"
+        android:layout_width="36dp"
+        android:layout_height="24dp"
+        android:background="@android:color/transparent"
+        android:checkable="false"
+        android:clickable="true"
+        android:focusable="true"
+        app:icon="@drawable/ic_baseline_more_vert_24"
+        style="@style/Widget.AppTheme.LikeCheckbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/title"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/author"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:padding="@dimen/small_spacing"
         android:singleLine="true"
         android:text="@string/author_dummy"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/title"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/type"
-        android:layout_width="0dp"
+        android:id="@+id/text_field_3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
+        android:padding="@dimen/small_spacing"
         android:text="@string/cuisine_type_dummy"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/author"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/author" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/content"
-        android:layout_width="0dp"
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:ellipsize="end"
+        android:padding="@dimen/common_spacing"
         android:singleLine="true"
-        android:text="@string/cooking_steps_dummy"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/type"
-        app:layout_constraintTop_toBottomOf="@id/type" />
+        android:text="@string/cuisine_type_dummy"
+        app:layout_constraintStart_toEndOf="@id/text_field_3"
+        app:layout_constraintTop_toBottomOf="@id/author" />
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/options"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/options_description"
-        app:icon="@drawable/ic_options_24dp"
-        app:iconGravity="end"
-        app:iconTint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
         android:id="@+id/favoriteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:backgroundTint="@android:color/transparent"
+        android:layout_width="36dp"
         android:clickable="true"
-        android:contentDescription="@string/it_is_favorite_button_description"
-        android:focusable="true"
-        android:src="@drawable/ic_favorites_border_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/content" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:layout_width="match_parent"
+        android:checkable="true"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/content" />
+        android:contentDescription="@string/it_is_favorite_button_description"
+        app:icon="@drawable/ic_favorites_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/author"
+        android:focusable="true" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/steps_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/type" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

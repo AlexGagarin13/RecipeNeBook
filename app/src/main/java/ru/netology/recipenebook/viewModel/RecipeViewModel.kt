@@ -1,132 +1,418 @@
 package ru.netology.recipenebook.viewModel
 
 import android.app.Application
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import ru.netology.recipenebook.adapter.RecipeInteractionListener
 import ru.netology.recipenebook.data.Recipe
-import ru.netology.recipenebook.data.impl.RecipeRepositoryImpl
+import ru.netology.recipenebook.data.RecipeCategory
+import ru.netology.recipenebook.data.RecipeStep
+import ru.netology.recipenebook.data.impl.CategoryRepositoryImplementation
+import ru.netology.recipenebook.data.impl.RecipeRepositoryImplementation
+import ru.netology.recipenebook.data.impl.RecipeStepsRepositoryImplementation
 import ru.netology.recipenebook.db.AppDb
+import ru.netology.recipenebook.repository.CategoryRepository
 import ru.netology.recipenebook.repository.RecipeRepository
+import ru.netology.recipenebook.repository.RecipeStepsRepository
 import ru.netology.recipenebook.util.SingleLiveEvent
-
-class RecipeViewModel(application: Application) : AndroidViewModel(application),
-    RecipeInteractionListener {
-
-    private val repository: RecipeRepository =
-        RecipeRepositoryImpl(dao = AppDb.getInstance(context = application).recipeDao)
-
-    val data by repository::data
-
-    var filterIsActive: Boolean = false
-
-    //SingleLiveEvents
-    val navigateToShowFavorite = SingleLiveEvent<String>()
-    val navigateToRecipeCreateScreenEvent = SingleLiveEvent<Unit>()
-    val navigateToRecipeUpdateScreenEvent = SingleLiveEvent<String?>()
-    val navigateToRecipeShowScreenEvent = SingleLiveEvent<Unit>()
-    val navigateToRecipeFilterScreenEvent = SingleLiveEvent<Unit>()
+import java.io.IOException
+import kotlin.math.max
+import kotlin.math.min
 
 
-    //Data
-    val updateRecipe = MutableLiveData<Recipe>(null)
-    val showRecipe = MutableLiveData<Recipe?>(null)
-    val feedFragment = data
-    private val currentRecipe = MutableLiveData<Recipe?>(null)
+const val NEW_ITEM_ID = 0L
 
-    fun showEuropean(type: String) {
-        repository.showEuropean(type)
-        filterIsActive = true
+class RecipeViewModel(private val inApplication: Application) :
+    AndroidViewModel(inApplication), RecipesFeederHelper, StepsDetailsHelper, CategoriesHelper {
+
+    var tempBitMap: Bitmap? = null
+
+    var isNewRecipe: Boolean = false
+    var isNewStep: Boolean = false
+    var selectedSpinner: String? = "empty"
+    var isFavouriteShow: Boolean = false
+
+
+    // Categories data section
+    private val categoriesRepo: CategoryRepository =
+        CategoryRepositoryImplementation(AppDb.getInstance(inApplication).categoryDao)
+    val catData by categoriesRepo::data
+    fun saveCategory(category: RecipeCategory) = categoriesRepo.save(category)
+    fun getCatNameId(id: Long) = categoriesRepo.getName(id)
+
+    // Recipes data section
+    private val recipesRepo: RecipeRepository =
+        RecipeRepositoryImplementation(AppDb.getInstance(inApplication).recipeDao)
+    val recData by recipesRepo::data
+    val allRecipesData by recipesRepo::allData
+    val recipeNamesFilter = SingleLiveEvent<String?>()
+    val showRecipe = SingleLiveEvent<Recipe?>()
+    val favouriteRecipe = SingleLiveEvent<Recipe?>()
+    val editRecipe = SingleLiveEvent<Recipe?>()
+    var tempRecipe: Recipe? = null
+    fun saveRecipe(recipe: Recipe) = recipesRepo.save(recipe)
+    fun deleteRecipe(recipe: Recipe) = recipesRepo.delete(recipe.id)
+    fun clearAllRecipes() = recipesRepo.clearAll()
+    fun getRecipesByIdList(ids: List<Long>) = recipesRepo.getRecipesList(ids)
+    fun listAllRecipes() = recipesRepo.listAllRecipes()
+    fun listAllFilteredRecipes() = recipesRepo.listAllSelectedRecipes()
+
+    // Recipe steps data section
+    private val recStepsRepo: RecipeStepsRepository =
+        RecipeStepsRepositoryImplementation(AppDb.getInstance(inApplication).recStepsDao)
+    val stepsFilteredData by recStepsRepo::dataFiltered
+    val stepsAllData by recStepsRepo::dataAll
+    val editedStepsList: MutableList<RecipeStep> = mutableListOf()
+    private var editStep: RecipeStep? = null
+    var stepUri: Uri? = null
+    fun saveStep(step: RecipeStep) = recStepsRepo.save(step)
+    fun removeStep(step: RecipeStep) = recStepsRepo.delete(step.id)
+    fun clearEditedStep() {
+        editStep = null
     }
 
-    fun showAsian(type: String) {
-        repository.showAsian(type)
-        filterIsActive = true
+    fun getStepsWithRecId(id: Long) = recStepsRepo.getStepsListWithRecId(id)
+
+    fun setEditedStepsPicture(picUri: Uri?) {
+        // Basic checks
+        val step = chooseThePicture.value ?: return
+        if (picUri == null) return
+
+        val stepId = step.id //This function is called from inside the observer of chooseThePicture
+
+        stepUri = picUri
+
+        // Extract the bitmap
+        val inputStream = inApplication.contentResolver.openInputStream(picUri)
+        val drawable = Drawable.createFromStream(inputStream, stepUri.toString())
+        val bitmap = (drawable as BitmapDrawable).bitmap
+
+        // arrange a file for it in drawable folder
+        val timeMills = System.currentTimeMillis()
+        val fileName: String = "picture_$timeMills.jpg"
+        val fos = inApplication.openFileOutput(fileName, Context.MODE_PRIVATE)
+
+        // write bitmap to this file
+        try {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            fos.flush()
+            fos.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        // save step with picture name
+        editStep = step.copy(picture = fileName, pUri = picUri)
+        saveStep(editStep!!)
     }
 
-    fun showPanasian(type: String) {
-        repository.showPanasian(type)
-        filterIsActive = true
+    // Events in UI
+    val navigateToNewStepEdit = SingleLiveEvent<Unit>()
+    val chooseThePicture = SingleLiveEvent<RecipeStep?>()
+
+    override fun onChoosePictureClicked(step: RecipeStep) {
+        chooseThePicture.value = step
     }
 
-    fun showEastern(type: String) {
-        repository.showEastern(type)
-        filterIsActive = true
+    override fun onEditStepContents(stepId: Long, text: String) {
+        recStepsRepo.updateContent(stepId, text)
     }
 
-    fun showAmerican(type: String) {
-        repository.showAmerican(type)
-        filterIsActive = true
+    override fun updateStep(step: RecipeStep) {
+        editedStepsList.add(step)
+        recStepsRepo.updateStep(step)
     }
 
-    fun showRussian(type: String) {
-        repository.showRussian(type)
-        filterIsActive = true
+    override fun editStep(step: RecipeStep) {
+        editStep = step
+        isNewStep = false
+        navigateToNewStepEdit.call()
     }
 
-    fun showMediterranean(type: String) {
-        repository.showMediterranean(type)
-        filterIsActive = true
+    override fun getBitmapFromFile(name: String): Bitmap? {
+        val file = inApplication.filesDir.resolve(name)
+        if (!file.exists()) return null
+        val fis = inApplication.openFileInput(name)
+        val bm = BitmapFactory.decodeStream(fis)
+        fis.close()
+        return bm
     }
 
-    fun clearFilter() {
-        repository.getData()
+    fun setRecipeNamesFilter(newText: String) {
+        recipeNamesFilter.value = newText
     }
 
-    override fun updateContent(
-        id: Long,
-        title: String,
-        author: String,
-        content: String,
-        type: String
-    ) {
-        val recipe = Recipe(
-            id = id,
-            title = title,
-            author = author,
-            content = content,
-            type = type
-        )
-        repository.save(recipe)
+    fun addNewRecipe() {
+        editedStepsList.clear()
+        val newRecipe = Recipe(NEW_ITEM_ID, "", "", 1L, false)
+        val recID = saveRecipe(newRecipe)
+
+        editRecipe.value = newRecipe.copy(id = recID)
+        isNewRecipe = true
     }
 
-    override fun onRemoveClicked(recipe: Recipe) {
-        repository.delete(recipe)
+    fun onEditRecipe(recipe: Recipe) {
+        editedStepsList.clear()
+        editRecipe.value = recipe
+        isNewRecipe = false
     }
 
-    override fun onEditClicked(recipe: Recipe) {
-        updateRecipe.value = recipe
-        navigateToRecipeUpdateScreenEvent.call()
-    }
 
-    override fun onFavoriteClicked(recipeId: Long) {
-        repository.favorite(recipeId)
-    }
-
-    override fun onSearchClicked(text: String) {
-        repository.searchText(text)
-    }
-
-    override fun onCreateClicked() {
-        navigateToRecipeCreateScreenEvent.call()
-    }
-
-    override fun onSaveClicked(title: String, author: String, content: String, type: String) {
-
-        val recipe = Recipe(
-            id = RecipeRepository.NEW_RECIPE_ID,
-            title = title,
-            author = author,
-            content = content,
-            type = type
-        )
-        repository.save(recipe)
-        currentRecipe.value = null
-    }
-
-    override fun onShowRecipeClicked(recipe: Recipe) {
+    // Helper interface methods for use in RW adapter
+    override fun onRecipeClicked(recipe: Recipe?) {
         showRecipe.value = recipe
-        navigateToRecipeShowScreenEvent.call()
     }
 
+    override fun onFavoriteClicked(recipe: Recipe?) {
+        favouriteRecipe.value = recipe
+    }
+
+    override fun getCategoryName(id: Long) = getCatNameId(id)
+
+
+    override fun updateRepoWithNewListFromTo(
+        list: List<Recipe>,
+        dragFrom: Int,
+        dragTo: Int
+    ): Boolean {
+
+        val upDownMovement = dragFrom < dragTo
+        val downUpMovement = dragFrom > dragTo
+
+        val minIndex = min(dragFrom, dragTo)
+        val maxIndex = max(dragFrom, dragTo)
+        val rwSubList = list.subList(minIndex, maxIndex + 1)
+        val inListIds = rwSubList.map { it.id }.sorted() //order of IDs in db
+
+        if (inListIds.size != rwSubList.size) return false
+
+        val updatedList = mutableListOf<Recipe>()
+
+        if (upDownMovement) {
+            val rwlSize = rwSubList.size
+            val firstToLast = rwSubList[0]
+            rwSubList.forEachIndexed { index, recipe ->
+                if (index == rwlSize - 1) {
+                    updatedList.add(firstToLast)
+                } else {
+                    updatedList.add(rwSubList[index + 1])
+                }
+            }
+        }
+
+        if (downUpMovement) {
+            val rwlSize = rwSubList.size
+            val lastToFirst = rwSubList[rwlSize - 1]
+            rwSubList.forEachIndexed { index, recipe ->
+                if (index == 0) {
+                    updatedList.add(lastToFirst)
+                } else {
+                    updatedList.add(rwSubList[index - 1])
+                }
+            }
+        }
+
+        // get recipes steps list of lists, to avoid cyclic re-write of recipe id into the step!
+        // here, it is the same order of index as in the next "forEach"
+        val listOfLists: MutableList<List<RecipeStep>> = mutableListOf()
+        updatedList.forEach { rwRecipe ->
+            listOfLists.add(recStepsRepo.getStepsListWithRecId(rwRecipe.id))
+        }
+
+        // now, save new order in DB
+        updatedList.forEachIndexed { index, rwRecipe ->
+            val rec = getRecipeById(inListIds[index])
+                ?: return false // get the current item from DB with this ID
+            val updatedRec = rwRecipe.copy(id = rec.id)
+            recipesRepo.update(updatedRec)
+
+            val stepsList = listOfLists[index]
+            stepsList.forEach { step ->
+                val updatedStep = step.copy(recipeId = updatedRec.id)
+                recStepsRepo.updateStep(updatedStep)
+            }
+        }
+        return true
+    }
+
+    override fun updateStepsRepoWithListFromTo(list: List<RecipeStep>, dragFrom: Int, dragTo: Int) {
+
+        val upDownMovement = dragFrom < dragTo
+        val downUpMovement = dragFrom > dragTo
+
+        val minIndex = min(dragFrom, dragTo)
+        val maxIndex = max(dragFrom, dragTo)
+        val rwSubList = list.subList(minIndex, maxIndex + 1)
+        val inListIds = rwSubList.map { it.id }.sorted() //order of IDs in db
+
+        if (inListIds.size != rwSubList.size) return
+
+        val updatedList = mutableListOf<RecipeStep>()
+
+        if (upDownMovement) {
+            val rwlSize = rwSubList.size
+            val firstToLast = rwSubList[0]
+            rwSubList.forEachIndexed { index, recipe ->
+                if (index == rwlSize - 1) {
+                    updatedList.add(firstToLast)
+                } else {
+                    updatedList.add(rwSubList[index + 1])
+                }
+            }
+        }
+
+        if (downUpMovement) {
+            val rwlSize = rwSubList.size
+            val lastToFirst = rwSubList[rwlSize - 1]
+            rwSubList.forEachIndexed { index, recipe ->
+                if (index == 0) {
+                    updatedList.add(lastToFirst)
+                } else {
+                    updatedList.add(rwSubList[index - 1])
+                }
+            }
+        }
+
+        updatedList.forEachIndexed { index, rwStep ->
+            val step = getStepById(inListIds[index]) // get the current item from DB with this ID
+            val updatedStep = rwStep.copy(id = step.id)
+            recStepsRepo.updateStep(updatedStep)
+        }
+
+    }
+
+    fun updateRecIdForStep(oldId: Long, newId: Long) {
+        recStepsRepo.update(oldId, newId)
+    }
+
+    fun addNewEditedStep() {
+        val recId = editRecipe.value?.id ?: return
+        val step = RecipeStep(NEW_ITEM_ID, recId, "")
+        isNewStep = true
+        val stepId = saveStep(step)
+        editStep = step.copy(id = stepId)
+        navigateToNewStepEdit.call()
+    }
+
+    override fun deleteEditedStep(step: RecipeStep) {
+        val oldvalue = editStep
+        editStep = step
+        deleteEditedStepPicture()
+        recStepsRepo.delete(step.id)
+
+        editStep = oldvalue
+    }
+
+    override fun getNumberOfSelectedCategories(): Int {
+        return categoriesRepo.getNumberOfSelectedCategories()
+    }
+
+    fun deleteAllCategories() = categoriesRepo.deleteAllCategories()
+
+    override fun setCategoryVisible(id: Long) {
+        categoriesRepo.setVisible(id)
+    }
+
+    override fun setCategoryInvisible(id: Long) {
+        categoriesRepo.setNotVisible(id)
+    }
+
+    fun setFavorite(id: Long, favourite: Boolean) {
+        recipesRepo.favorite(id, favourite)
+    }
+
+    fun onSaveEditedRecipe(recipe: Recipe) {
+        val recId = saveRecipe(recipe)
+
+        val stepsList = stepsAllData.value?.filter { it.recipeId == recId }
+
+        stepsList?.forEach { step ->
+            updateStep(step)
+        }
+
+        editRecipe.value = null
+        tempRecipe = null
+    }
+
+    fun getCatIdbyName(category: String?): Long? {
+        return categoriesRepo.getIdByName(category)
+    }
+
+    fun getEditedRecipe(): Recipe? {
+        return editRecipe.value
+    }
+
+    fun initCategories() {
+
+        val size = getNumberOfSelectedCategories()
+
+        if (size > 0) return
+
+        saveCategory(RecipeCategory(NEW_ITEM_ID, "Европейская"))
+        saveCategory(RecipeCategory(NEW_ITEM_ID, "Азиатская"))
+        saveCategory(RecipeCategory(NEW_ITEM_ID, "Паназиатская"))
+        saveCategory(RecipeCategory(NEW_ITEM_ID, "Восточная"))
+        saveCategory(RecipeCategory(NEW_ITEM_ID, "Американская"))
+        saveCategory(RecipeCategory(NEW_ITEM_ID, "Русская"))
+        saveCategory(RecipeCategory(NEW_ITEM_ID, "Средиземноморская"))
+    }
+
+    fun getEditedStep(): RecipeStep? {
+        return editStep
+    }
+
+    fun onSaveEditedStep(newStep: RecipeStep) {
+        saveStep(newStep)
+        editStep = null
+    }
+
+    fun getRecipeById(id: Long): Recipe {
+        return recipesRepo.getRecipeById(id)
+    }
+
+    fun getStepById(stepId: Long): RecipeStep {
+        return recStepsRepo.getStepById(stepId)
+    }
+
+    fun deleteEditedStepPicture() {
+        val step = editStep
+        val name = step?.picture ?: return
+        if (name == "empty") return
+
+        val file = inApplication.filesDir.resolve(name)
+        if (file.exists()) {
+            file.delete()
+        }
+        editStep = step.copy(picture = "empty", pUri = null)
+        saveStep(editStep!!)
+    }
+
+    fun saveTempBitmapToFile() {
+        if (tempBitMap == null) return
+        val step = editStep ?: return
+
+        val bitmap = tempBitMap
+
+        val timeMills = System.currentTimeMillis()
+        val fileName: String = "picture_" + timeMills.toString() + ".jpg"
+        val fos = inApplication.openFileOutput(fileName, Context.MODE_PRIVATE)
+
+        // write bitmap to this file
+        try {
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            fos.flush()
+            fos.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        // save step with picture name
+        editStep = step.copy(picture = fileName, pUri = null)
+        saveStep(editStep!!)
+        tempBitMap = null
+    }
 }
