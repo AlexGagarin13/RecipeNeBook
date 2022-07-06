@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<!--    <item android:id="@+id/feed"-->
-<!--        android:icon="@drawable/ic_recipe_feed_24dp"-->
-<!--        android:title="@string/all_recipes"-->
-<!--        android:drawable="@color/black"-->
-<!--        app:showAsAction="ifRoom"/>-->
+    <item android:id="@+id/feed"
+        android:icon="@drawable/ic_recipe_feed_24dp"
+        android:title="@string/all_recipes"
+        android:enabled="true"/>
     <item android:id="@+id/favorites"
         android:icon="@drawable/ic_favorites_24dp"
         android:title="@string/favorites"
-        android:drawable="@color/black"
-        app:showAsAction="ifRoom"/>
+        android:enabled="true"/>
     <item
         android:id="@+id/filter"
         android:icon="@drawable/ic__filter_24dp"
         android:title="@string/filter"
-        android:drawable="@color/black"
-        app:showAsAction="ifRoom"/>
+        android:enabled="true"/>
 </menu>

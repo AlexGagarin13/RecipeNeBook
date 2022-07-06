@@ -31,4 +31,35 @@
     <string name="empty_in_favorites">Нет рецептов</string>
     <string name="search">Искать</string>
 
+
+    <string name="nav_main_string2">Recipe details</string>
+    <string name="nav_main_string3">Recipe new / edit</string>
+    <string name="nav_main_string4">Новый шаг</string>
+    <string name="recipe_new_string2">Рецепт: </string>
+    <string name="recipe_new_string4">Создание нового рецепта</string>
+    <string name="recipe_new_string5">Правка: </string>
+    <string name="discard">Discard</string>
+    <string name="step_new_string1">Recipe step description can not be empty!</string>
+    <string name="steps_adapter_string1">Are you sure to delete this step description?</string>
+    <string name="steps_adapter_string2">No, let it stay</string>
+    <string name="steps_adapter_string3">Yes, delete!</string>
+    <string name="cat_feeder_string1">Please use bottom menu to switch between screens!</string>
+    <string name="step_new_string2">Are you sure to discard the changes? This action can NOT be restored!</string>
+    <string name="step_new_string3">No, stay here</string>
+    <string name="step_new_string4">Yes, discard</string>
+    <string name="fav_feeder_string1">NeRecipe, categories selection</string>
+    <string name="rec_feeder_string1">Press BACK once more to exit the App!</string>
+    <string name="fragment_category_xml_string1">Category</string>
+    <string name="recipe_new_string1">Recipe name and Author name, or Steps list can not be empty!</string>
+    <string name="recipe_new_string3">No category set</string>
+    <string name="recipe_new_string6">Are you sure to discard the changes?</string>
+    <string name="recipe_new_string7">No, stay here</string>
+    <string name="recipe_new_string8">Yes, discard</string>
+    <string name="item_edit_more">Edit</string>
+    <string name="item_remove_more">Remove</string>
+    <string name="recipe_card_string1">Are you sure to delete this Recipe with descriptions?</string>
+    <string name="recipe_card_string2">No, let it stay</string>
+    <string name="recipe_card_string3">Yes, delete!</string>
+    <string name="cat_adapter_string1">There must be at least ONE category selected!</string>
+
 </resources>

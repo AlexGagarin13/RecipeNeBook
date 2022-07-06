@@ -2,131 +2,94 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipe_card_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/small_spacing"
+    android:paddingBottom="24dp"
     tools:context=".ui.RecipeCreateFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name" />
-    </com.google.android.material.appbar.AppBarLayout>
-
-
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_spacing"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="@dimen/small_spacing"
-        android:autofillHints=""
+        android:background="@android:color/transparent"
+        android:ellipsize="end"
         android:hint="@string/recipe_name_hint"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:textCursorDrawable="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
+        android:padding="8dp"
+        android:singleLine="true"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <EditText
-        android:id="@+id/author"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_field_3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_spacing"
-        android:layout_marginEnd="@dimen/small_spacing"
-        android:autofillHints=""
-        android:hint="@string/author_hint"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:textCursorDrawable="@null"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="@dimen/small_spacing"
+        android:text="@string/cuisine_type_dummy"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <EditText
-        android:id="@+id/content"
-        android:layout_width="match_parent"
+    <Spinner
+        android:id="@+id/category_choose"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_spacing"
-        android:layout_marginEnd="@dimen/small_spacing"
-        android:autofillHints=""
-        android:hint="@string/cooking_steps_hint"
-        android:inputType="textMultiLine"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:padding="16dp"
+        android:singleLine="true"
+        android:text="@string/cuisine_type_dummy"
+        app:layout_constraintBottom_toBottomOf="@id/text_field_3"
+        app:layout_constraintEnd_toStartOf="@id/favoriteButton"
+        app:layout_constraintStart_toEndOf="@id/text_field_3"
+        app:layout_constraintTop_toTopOf="@id/text_field_3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/favoriteButton"
+        android:layout_width="28dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="@android:color/transparent"
+        android:contentDescription="@string/it_is_favorite_button_description"
+        app:icon="@drawable/ic_favorites_24dp"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/category_choose"
+        app:layout_constraintBottom_toBottomOf="@id/category_choose"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/author"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:inputType="text"
+        android:padding="@dimen/small_spacing"
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@id/new_step_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_field_3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/new_step_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New step"
+        app:layout_constraintBottom_toBottomOf="@id/author"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/author" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/steps_list_new"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/author" />
 
-
-    <RadioGroup
-        android:id="@+id/rGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/content">
-
-        <RadioButton
-            android:id="@+id/checkBoxEuropean"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/european_type" />
-
-        <RadioButton
-            android:id="@+id/checkBoxAsian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/asian_type" />
-
-        <RadioButton
-            android:id="@+id/checkBoxPanasian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/panasian_type" />
-
-        <RadioButton
-            android:id="@+id/checkBoxEastern"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/eastern_type" />
-
-        <RadioButton
-            android:id="@+id/checkBoxAmerican"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/american_type" />
-
-        <RadioButton
-            android:id="@+id/checkBoxRussian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/russian_type" />
-
-        <RadioButton
-            android:id="@+id/checkBoxMediterranean"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mediterranean_type" />
-
-    </RadioGroup>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/common_spacing"
-        android:layout_marginBottom="@dimen/common_spacing"
-        android:contentDescription="@string/save_button_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,8 +2,10 @@ package ru.netology.recipenebook.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,25 +17,19 @@ import ru.netology.recipenebook.viewModel.RecipeViewModel
 class RecipeFavoriteShowFragment : Fragment() {
 
     private val viewModel by activityViewModels<RecipeViewModel>()
+    private var _binding: ShowFavoriteBinding? = null
+    private val binding get() = _binding
+    private var isEmptyState: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.navigateToRecipeUpdateScreenEvent.observe(this) {
-            val updatedRecipe = viewModel.updateRecipe.value
-            val directions = FeedRecipeFragmentDirections.toUpdateRecipeFragment(updatedRecipe)
-            findNavController().navigate(directions)
-        }
-
-        viewModel.navigateToRecipeShowScreenEvent.observe(this) {
-            val viewRecipe = viewModel.showRecipe.value
-            val directions = FeedRecipeFragmentDirections.toRecipeShowCertainFragment(viewRecipe)
-            findNavController().navigate(directions)
-        }
-
-        viewModel.navigateToRecipeFilterScreenEvent.observe(this) {
-            val directions = FeedRecipeFragmentDirections.toFilterFragment()
-            findNavController().navigate(directions)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            Toast.makeText(
+                context,
+                context?.getString(R.string.fav_feeder_string1),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -41,50 +37,52 @@ class RecipeFavoriteShowFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = ShowFavoriteBinding.inflate(layoutInflater, container, false).also { binding ->
+    ): View? {
+        _binding = ShowFavoriteBinding.inflate(inflater)
 
-        viewModel.data.observe(viewLifecycleOwner) { recipes ->
+        val adapter = RecipeAdapter(viewModel, RecipeAdapter.RECIPES_ADAPTER)
+        binding?.favoriteList?.adapter = adapter
 
-            val favRecipes = recipes.none { it.isFavorite }
-            if (favRecipes) {
-                binding.emptyText.isVisible = favRecipes
-                binding.emptyIcon.isVisible = favRecipes
-            }
+        viewModel.isFavouriteShow = true
+
+        viewModel.allRecipesData.observe(viewLifecycleOwner) { recipes ->
+            if (recipes.filter { it.isFavorite }.isEmpty())
+                showEmptyStateFavorites()
+            else if (isEmptyState) hideEmptyStateFavorites()
+
+            adapter.submitList(recipes.filter { it.isFavorite })
         }
 
-        val adapter = RecipeAdapter(viewModel)
-        binding.favoriteList.adapter = adapter
-
-        viewModel.data.observe(viewLifecycleOwner) { recipes ->
-            val favRecipes = recipes.filter { it.isFavorite }
-            adapter.submitList(favRecipes)
+        viewModel.showRecipe.observe(viewLifecycleOwner) { recipe ->
+            if (recipe == null) return@observe
+            findNavController().navigate(R.id.toRecipeShowCertainFragment)
         }
+        return binding?.root
+    }
 
-        binding.bottomNavBar.setOnItemSelectedListener { it ->
-            when (it.itemId) {
-                R.id.feed -> findNavController().popBackStack()
-            }
-            true
-        }
+    private fun showEmptyStateFavorites() {
+        if (binding == null) return
+        with(binding!!) {
+            // Hide RW and filter edit field
+            favoriteList.visibility = View.GONE
 
-        binding.bottomNavBar.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.favorites -> {
-                    viewModel.navigateToShowFavorite.call()
-                    true
-                }
-                R.id.filter -> {
-                    viewModel.navigateToRecipeFilterScreenEvent.call()
-                    true
-                }
-                R.id.feed -> {
-                    viewModel.feedFragment.observe(viewLifecycleOwner) {
-                        findNavController().popBackStack()
-                    }
-                    true
-                }
-                else -> false
-            }
+            // SHow Empty State pic and text
+            emptyIcon.visibility = View.VISIBLE
+            emptyText.visibility = View.VISIBLE
         }
-    }.root
+        isEmptyState = true
+    }
+
+    private fun hideEmptyStateFavorites() {
+        if (binding == null) return
+        with(binding!!) {
+            // Show RW and filter edit field
+            favoriteList.visibility = View.VISIBLE
+
+            // Hide Empty State pic and text
+            emptyIcon.visibility = View.GONE
+            emptyText.visibility = View.GONE
+        }
+        isEmptyState = false
+    }
 }

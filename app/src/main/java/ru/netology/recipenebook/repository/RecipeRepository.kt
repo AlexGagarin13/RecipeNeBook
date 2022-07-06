@@ -5,26 +5,15 @@ import ru.netology.recipenebook.data.Recipe
 
 interface RecipeRepository {
     val data: LiveData<List<Recipe>>
+    val allData: LiveData<List<Recipe>>
 
-    //CRUD logic
-    fun save(recipe: Recipe)
-    fun update(recipe: Recipe)
-    fun delete(recipe: Recipe)
-    fun favorite(long: Long)
-    fun getData()
-    fun searchText(Text: String)
-
-    //Filter Section
-    fun showEuropean(type: String)
-    fun showAsian(type: String)
-    fun showPanasian(type: String)
-    fun showEastern(type: String)
-    fun showAmerican(type: String)
-    fun showRussian(type: String)
-    fun showMediterranean(type: String)
-
-
-    companion object {
-        const val NEW_RECIPE_ID = 0L
-    }
+    fun save(recipe: Recipe): Long
+    fun delete(id: Long)
+    fun clearAll()
+    fun favorite(id: Long, favourite: Boolean)
+    fun getRecipeById(getId: Long): Recipe
+    fun update(recipe: Recipe): Int
+    fun getRecipesList(ids: List<Long>): List<Recipe>
+    fun listAllRecipes(): List<Recipe>
+    fun listAllSelectedRecipes(): List<Recipe>
 }
