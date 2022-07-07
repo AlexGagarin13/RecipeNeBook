@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import ru.netology.recipenebook.R
 import ru.netology.recipenebook.adapter.CategoriesAdapter
 import ru.netology.recipenebook.databinding.CategoriesFragmentBinding
@@ -22,8 +23,9 @@ class CategoriesFragment: Fragment() {
         super.onCreate(savedInstanceState)
 
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-            Toast.makeText(context, getString(R.string.cat_feeder_string1), Toast.LENGTH_SHORT)
-                .show()
+//            Toast.makeText(context, getString(R.string.cat_feeder_string1), Toast.LENGTH_SHORT)
+//                .show()
+            findNavController().popBackStack()
         }
     }
 
@@ -39,6 +41,14 @@ class CategoriesFragment: Fragment() {
 
         viewModel.catData.observe(viewLifecycleOwner) { categories ->
             adapter.submitList(categories)
+        }
+
+        binding?.filterOk?.setOnClickListener {
+            findNavController().navigate(R.id.feedFragment)
+        }
+
+        binding?.favorites?.setOnClickListener {
+            findNavController().navigate(R.id.favoriteShowFragment)
         }
 
         return binding?.root

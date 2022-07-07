@@ -131,9 +131,11 @@ class FeedRecipeFragment : Fragment() {
         }
 
 
-        binding?.favorites?.setOnClickListener {
-            findNavController().navigate(R.id.favoriteShowFragment)
+        binding?.filter?.setOnClickListener{
+            findNavController().navigate(R.id.categoriesFragment)
         }
+
+
         // Show Recipe New Fragment
         binding?.fab?.alpha = 0.90f
         binding?.fab?.setOnClickListener {
