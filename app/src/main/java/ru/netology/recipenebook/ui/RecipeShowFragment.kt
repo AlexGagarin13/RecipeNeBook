@@ -22,7 +22,7 @@ import ru.netology.recipenebook.viewModel.RecipeViewModel
 class RecipeShowFragment : Fragment() {
 
     private val viewModel by activityViewModels<RecipeViewModel>()
-    private var _binding: RecipeBinding? = null
+    private var _binding: ShowCertainRecipeBinding? = null
     private val binding get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +46,7 @@ class RecipeShowFragment : Fragment() {
         )
         val recipe = viewModel.getRecipeById(getRecipe.id)
 
-        _binding = RecipeBinding.inflate(inflater, container, false)
+        _binding = ShowCertainRecipeBinding.inflate(inflater, container, false)
 
         val adapter = StepsAdapter(viewModel, StepsAdapter.SHOW_ADAPTER)
 

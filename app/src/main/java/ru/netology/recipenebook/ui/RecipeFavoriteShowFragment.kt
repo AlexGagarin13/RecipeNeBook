@@ -30,6 +30,7 @@ class RecipeFavoriteShowFragment : Fragment() {
                 context?.getString(R.string.fav_feeder_string1),
                 Toast.LENGTH_SHORT
             ).show()
+            findNavController().popBackStack()
         }
     }
 

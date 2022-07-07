@@ -28,7 +28,6 @@ class AppActivity:AppCompatActivity() {
 
         setupActionBarWithNavController(navController)
 
-        binding.bottomNavBar.setupWithNavController(navController)
         navController.addOnDestinationChangedListener(ChangeTitlesAndSuppressUpButton())
 
     }

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recipe_card_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp"
-    android:paddingBottom="16dp"
-    android:clickable="true"
-    android:longClickable="true"
-    android:focusable="true">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/small_spacing"
+    android:paddingBottom="@dimen/small_spacing"
+    tools:context=".ui.RecipeShowFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:padding="@dimen/small_spacing"
@@ -20,8 +19,23 @@
         android:text="@string/recipe_title_dummy"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
- />
+        app:layout_constraintEnd_toStartOf="@id/imageMore"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/imageMore"
+        style="@style/Widget.AppTheme.LikeCheckbox"
+        android:layout_width="36dp"
+        android:layout_height="24dp"
+        android:background="@android:color/transparent"
+        android:checkable="false"
+        android:clickable="true"
+        android:focusable="true"
+        app:icon="@drawable/ic_baseline_more_vert_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/title"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/author"
@@ -48,20 +62,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:padding="@dimen/common_spacing"
+        android:gravity="start"
+        android:padding="@dimen/small_spacing"
         android:singleLine="true"
         android:text="@string/cuisine_type_dummy"
+        app:layout_constraintEnd_toStartOf="@id/favoriteButton"
         app:layout_constraintStart_toEndOf="@id/text_field_3"
-        app:layout_constraintTop_toBottomOf="@id/author"/>
+        app:layout_constraintTop_toTopOf="@id/text_field_3" />
 
-    <ImageView
-        android:id="@+id/image_like_show"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/favoriteButton"
+        style="@style/Widget.AppTheme.LikeCheckbox"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:clickable="true"
+        android:contentDescription="@string/it_is_favorite_button_description"
+        android:focusable="true"
+        app:icon="@drawable/ic_favorites_24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/type"
-        app:layout_constraintBottom_toBottomOf="@id/type"
-        app:srcCompat = "@drawable/ic_favorite_filled_24"
-        android:visibility="invisible"
-        />
+        app:layout_constraintTop_toTopOf="@id/author" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/steps_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/type" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,17 +3,19 @@ package ru.netology.recipenebook.ui
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
+import androidx.navigation.ui.setupWithNavController
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import ru.netology.recipenebook.R
 import ru.netology.recipenebook.adapter.RecipeAdapter
 import ru.netology.recipenebook.databinding.FeedRecipesBinding
@@ -26,8 +28,10 @@ class FeedRecipeFragment : Fragment() {
     private val binding get() = _binding
     private var isEmptyState: Boolean = false
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             Toast.makeText(context, getString(R.string.rec_feeder_string1), Toast.LENGTH_LONG)
                 .show()
@@ -36,6 +40,25 @@ class FeedRecipeFragment : Fragment() {
             }
         }
     }
+//
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.bottom_nav_menu, menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            R.id.favorites -> {
+//                findNavController().navigate(R.id.toFavoriteShowFragment)
+//                true
+//            }
+//            R.id.filter -> {
+//                findNavController().navigate(R.id.toCategoriesFeederFragment)
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -107,11 +130,14 @@ class FeedRecipeFragment : Fragment() {
             findNavController().navigate(R.id.toRecipeShowCertainFragment)
         }
 
+
+        binding?.favorites?.setOnClickListener {
+            findNavController().navigate(R.id.favoriteShowFragment)
+        }
         // Show Recipe New Fragment
         binding?.fab?.alpha = 0.90f
         binding?.fab?.setOnClickListener {
             viewModel.addNewRecipe()
-
         }
         viewModel.editRecipe.observe(viewLifecycleOwner) { recipe ->
             if (recipe == null) return@observe

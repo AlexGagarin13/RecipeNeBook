@@ -38,28 +38,19 @@ class CategoriesAdapter(private val helper: CategoriesHelper) :
                 checkboxCategory.setOnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
                     if (buttonView == null) return@setOnCheckedChangeListener
                     if (!buttonView.isPressed) return@setOnCheckedChangeListener
-
-//                    if (checkboxCategory.tag == TAG_SKIP) { // we set the value with isChecked, skip the trigger
-//                        checkboxCategory.tag = TAG_PROCESS
-//                        return@setOnCheckedChangeListener
-//                    }
-
-                    if (isChecked) { // If user selected the category
+                    if (isChecked) {
                         helper.setCategoryVisible(item.id)
                         checkboxCategory.tag = TAG_PROCESS
                         return@setOnCheckedChangeListener
                     }
 
                     val num = helper.getNumberOfSelectedCategories()
-                    if (num > 1) { // If user de-selected the category and we have enough, 2 and more
+                    if (num > 1) {
                         helper.setCategoryInvisible(item.id)
                         checkboxCategory.tag = TAG_PROCESS
                         return@setOnCheckedChangeListener
                     }
 
-                    // now we have number of selected categories not more then 1, so
-                    // we keep the checkbox set
-                    // it doesn't trigger the CheckChanged listener... looks like
                     checkboxCategory.tag = TAG_SKIP
                     buttonView.isChecked = true
                     Toast.makeText(
@@ -87,5 +78,4 @@ class CategoriesAdapter(private val helper: CategoriesHelper) :
         const val TAG_SKIP = ".SKIP"
         const val TAG_PROCESS = ".PROCESS"
     }
-
 }

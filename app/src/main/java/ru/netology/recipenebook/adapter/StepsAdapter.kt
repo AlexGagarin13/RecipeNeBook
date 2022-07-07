@@ -67,11 +67,9 @@ class StepsAdapter(private val helper: StepsDetailsHelper, private val bindType:
         fun bindForEdit(step: RecipeStep) {
 
             with(binding) {
-                // No editing, just show the text
                 stepContent.text = step.content
                 menuMore.isVisible = true
 
-                // Setting the image to show. Either R.id or uri
                 val name = step.picture
 
                 val picUri = step.pUri
@@ -153,7 +151,6 @@ class StepsAdapter(private val helper: StepsDetailsHelper, private val bindType:
             return true
         }
 
-
         override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
             super.clearView(recyclerView, viewHolder)
 
@@ -170,8 +167,6 @@ class StepsAdapter(private val helper: StepsDetailsHelper, private val bindType:
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
         }
     }
-
 }

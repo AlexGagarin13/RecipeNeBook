@@ -48,16 +48,18 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/favoriteButton"
-        android:layout_width="28dp"
+        android:layout_width="36dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
         android:backgroundTint="@android:color/transparent"
+        android:checkable="true"
+        android:clickable="true"
         android:contentDescription="@string/it_is_favorite_button_description"
+        style="@style/Widget.AppTheme.LikeCheckbox"
+        android:focusable="true"
         app:icon="@drawable/ic_favorites_24dp"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="@id/category_choose"
         app:layout_constraintBottom_toBottomOf="@id/category_choose"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/category_choose" />
 
 
     <com.google.android.material.textfield.TextInputEditText
@@ -67,6 +69,7 @@
         android:background="@android:color/transparent"
         android:inputType="text"
         android:padding="@dimen/small_spacing"
+        android:hint="@string/author_dummy"
         android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@id/new_step_button"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +79,7 @@
         android:id="@+id/new_step_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New step"
+        android:text="@string/new_step"
         app:layout_constraintBottom_toBottomOf="@id/author"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/author" />
@@ -85,11 +88,9 @@
         android:id="@+id/steps_list_new"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/author" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

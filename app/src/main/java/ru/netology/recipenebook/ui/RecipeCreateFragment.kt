@@ -17,6 +17,7 @@ import ru.netology.recipenebook.R
 import ru.netology.recipenebook.adapter.StepsAdapter
 import ru.netology.recipenebook.data.Recipe
 import ru.netology.recipenebook.databinding.CreateRecipeFragmentBinding
+
 import ru.netology.recipenebook.viewModel.NEW_ITEM_ID
 import ru.netology.recipenebook.viewModel.RecipeViewModel
 

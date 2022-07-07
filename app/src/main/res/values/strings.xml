@@ -2,9 +2,6 @@
     <string name="app_name">Recipe NeBook</string>
     <string name="recipe_title_dummy">Recipe title</string>
     <string name="author_dummy">Author</string>
-    <string name="cuisine_type_dummy">Cuisine type</string>
-    <string name="cooking_steps_dummy">Cooking steps</string>
-    <string name="options_description">Options</string>
     <string name="it_is_favorite_button_description">Favorite</string>
     <string name="add_recipe">Add recipe</string>
     <string name="clear_filter">Clear filter</string>
@@ -29,12 +26,9 @@
     <string name="empty_icon_description">Nothing to show</string>
     <string name="empty_in_favorites">Nothing to show</string>
     <string name="search">Search</string>
-
     <string name="nav_main_string2">Recipe details</string>
     <string name="nav_main_string3">Recipe new / edit</string>
     <string name="nav_main_string4">New step</string>
-
-
     <string name="recipe_new_string2">Recipe: </string>
     <string name="recipe_new_string4">Creating new recipe</string>
     <string name="recipe_new_string5">Editing: </string>
@@ -61,6 +55,6 @@
     <string name="recipe_card_string2">No, let it stay</string>
     <string name="recipe_card_string3">Yes, delete!</string>
     <string name="cat_adapter_string1">There must be at least ONE category selected!</string>
-
-
+    <string name="new_step">New step</string>
+    <string name="cuisine_type_dummy">Cuisine type</string>
 </resources>

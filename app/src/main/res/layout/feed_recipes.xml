@@ -67,4 +67,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_24dp" />
 
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/favorites"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_favorites_24dp"
+        app:layout_constraintBottom_toTopOf= "@+id/recipe_name_filter_edit"
+        app:layout_constraintStart_toStartOf="parent"
+        android:focusable="true" />
+
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottom_nav_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:menu="@menu/bottom_nav_menu"/>-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

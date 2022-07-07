@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.recipenebook.data.Recipe
+import ru.netology.recipenebook.databinding.RecipeBinding
 import ru.netology.recipenebook.databinding.ShowCertainRecipeBinding
 import ru.netology.recipenebook.viewModel.RecipesFeederHelper
 
@@ -18,13 +19,12 @@ class RecipeAdapter(
 
 ) : ListAdapter<Recipe, RecipeAdapter.ViewHolder>(RecipeDiffCallback) {
 
-    private val helperCallback =
-        RecipesHelperCallback() // Up and down movement - OK, swipe - disabled (with "and" operator)
+    private val helperCallback = RecipesHelperCallback()
     private val mTouchHelper = ItemTouchHelper(helperCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ShowCertainRecipeBinding.inflate(inflater, parent, false)
+        val binding = RecipeBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -37,36 +37,27 @@ class RecipeAdapter(
     }
 
     inner class ViewHolder(
-        private val binding: ShowCertainRecipeBinding,
+        private val binding: RecipeBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Recipe?) {
             if (item == null) return
             with(binding) {
-                val catNumber = item.type
                 title.text = item.title
                 author.text = item.author
-                type.text =
-                    helper.getCategoryName(item.type) ?: "Error fetching the Category!"
-
+                type.text = helper.getCategoryName(item.type) ?: "Error fetching the Category!"
 
                 imageLikeShow.isVisible = item.isFavorite
 
-//                if (item.isFavourite)
-//                    imageLikeShow.isVisible = true
-//                else
-//                    imageLikeShow.isVisible = false
-
-                if (bindType == RECIPES_ADAPTER) { // if we show recipes screen
+                if (bindType == RECIPES_ADAPTER) {
                     recipeCardContainer.setOnClickListener {
                         helper.onRecipeClicked(item)
                     }
-                } else if (bindType == FAVOURITE_ADAPTER) { // if we show favourites screen
+                } else if (bindType == FAVOURITE_ADAPTER) {
                     recipeCardContainer.setOnClickListener {
                         helper.onFavoriteClicked(item)
                     }
                 }
-
             }
         }
     }
@@ -90,7 +81,6 @@ class RecipeAdapter(
     inner class RecipesHelperCallback : ItemTouchHelper.SimpleCallback(
         ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT and ItemTouchHelper.RIGHT
     ) {
-
         private var dragFrom: Int = -1
         private var dragTo: Int = -1
 
@@ -128,7 +118,6 @@ class RecipeAdapter(
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
         }
     }
 }
