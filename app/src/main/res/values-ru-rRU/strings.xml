@@ -3,9 +3,6 @@
     <string name="app_name">Neкнига рецептов</string>
     <string name="recipe_title_dummy">Название рецепта</string>
     <string name="author_dummy">Автор</string>
-    <string name="cuisine_type_dummy">Категория кухни</string>
-    <string name="cooking_steps_dummy">Этапы приготовления</string>
-    <string name="options_description">Опции</string>
     <string name="it_is_favorite_button_description">Избранное</string>
     <string name="add_recipe">Добавить рецепт</string>
     <string name="clear_filter">Очистить фильтр</string>
@@ -30,5 +27,35 @@
     <string name="empty_icon_description">Нет рецептов</string>
     <string name="empty_in_favorites">Нет рецептов</string>
     <string name="search">Искать</string>
-
+    <string name="nav_main_string2">Рецепт детали</string>
+    <string name="nav_main_string3">Рецепт новый / правка</string>
+    <string name="nav_main_string4">Новый шаг</string>
+    <string name="recipe_new_string2">Рецепт:  </string>
+    <string name="recipe_new_string4">Создание нового рецепта</string>
+    <string name="recipe_new_string5">Правка: </string>
+    <string name="discard">Удалить</string>
+    <string name="step_new_string1">Описание шага не может быть пустым!</string>
+    <string name="steps_adapter_string1">Действительно удалить??</string>
+    <string name="steps_adapter_string2">Нет, оставить!</string>
+    <string name="steps_adapter_string3">Да, удалить!</string>
+    <string name="cat_feeder_string1">Используйте нижнее меню для переключения между экранами!</string>
+    <string name="step_new_string2">Действительно удалить изменения? Это нельзя будет отменить!</string>
+    <string name="step_new_string3">Нет, остаться</string>
+    <string name="step_new_string4">Да, удалить</string>
+    <string name="fav_feeder_string1">Выбор категорий</string>
+    <string name="rec_feeder_string1">Нажмите Назад еще раз, чтобы выйти из приложения!</string>
+    <string name="fragment_category_xml_string1">Категория</string>
+    <string name="recipe_new_string1">Название рецепта, имя автора и шаги приготовления не могут быть незаполненными!</string>
+    <string name="recipe_new_string3">Категория не установлена</string>
+    <string name="recipe_new_string6">Действительно удалить изменения?</string>
+    <string name="recipe_new_string7">Нет, остаться</string>
+    <string name="recipe_new_string8">Да, удалить</string>
+    <string name="item_edit_more">Править</string>
+    <string name="item_remove_more">Удалить</string>
+    <string name="recipe_card_string1">Действительно удалить рецепт?</string>
+    <string name="recipe_card_string2">Нет, оставить</string>
+    <string name="recipe_card_string3">Да, удалить!</string>
+    <string name="cat_adapter_string1">Хотя бы одна категория должна быть выбрана!</string>
+    <string name="new_step">Новый шаг</string>
+    <string name="cuisine_type_dummy">Категория кухни</string>
 </resources>

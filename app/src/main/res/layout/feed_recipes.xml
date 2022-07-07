@@ -3,33 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="@string/app_name" />
-
-        <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:icon="@drawable/ic_search_24dp"
-            android:iconifiedByDefault="false"
-            android:textCursorDrawable="@null"
-            android:title="@string/search" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+    android:layout_height="match_parent"
+    tools:context=".ui.FeedRecipeFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -37,67 +12,76 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintBottom_toTopOf="@id/recipe_name_filter_edit"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/recipe" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/emptyIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/empty_icon_description"
+        android:scaleType="fitStart"
         android:src="@mipmap/ic_empty_ic_foreground"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/emptyText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible"
-        android:contentDescription="@string/empty_icon_description" />
+        tools:visibility="visible" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/emptyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/empty_in_favorites"
-        android:visibility="gone"
         android:textSize="30sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/recipe_name_filter_edit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="@string/search"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:paddingStart="@dimen/common_spacing"
+        android:paddingTop="@dimen/common_spacing"
+        android:paddingEnd="@dimen/common_spacing"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/common_spacing"
+        android:layout_margin="@dimen/small_spacing"
+        android:clickable="true"
         android:contentDescription="@string/add_recipe"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavBar"
+        android:focusable="true"
+        app:layout_constraintBottom_toTopOf="@id/recipe_name_filter_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_24dp" />
 
-
-    <Button
-        android:id="@+id/clearFilterButton"
+    <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/small_spacing"
-        android:text="@string/clear_filter"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavBar"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/favorites"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_favorites_24dp"
+        app:layout_constraintBottom_toTopOf= "@+id/recipe_name_filter_edit"
         app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
+        android:focusable="true" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:backgroundTint="@color/teal_200"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottom_nav_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:menu="@menu/bottom_nav_menu"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

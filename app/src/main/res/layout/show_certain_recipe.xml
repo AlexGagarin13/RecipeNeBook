@@ -2,90 +2,96 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipe_card_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".ui.RecipeShowCertainFragment">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/small_spacing"
+    android:paddingBottom="@dimen/small_spacing"
+    tools:context=".ui.RecipeShowFragment">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:padding="@dimen/small_spacing"
         android:singleLine="true"
+        android:text="@string/recipe_title_dummy"
         android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/imageMore"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/imageMore"
+        style="@style/Widget.AppTheme.LikeCheckbox"
+        android:layout_width="36dp"
+        android:layout_height="24dp"
+        android:background="@android:color/transparent"
+        android:checkable="false"
+        android:clickable="true"
+        android:focusable="true"
+        app:icon="@drawable/ic_baseline_more_vert_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/author"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:padding="@dimen/small_spacing"
         android:singleLine="true"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/title"
+        android:text="@string/author_dummy"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <TextView
-        android:id="@+id/type"
-        android:layout_width="0dp"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_field_3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/author"
+        android:padding="@dimen/small_spacing"
+        android:text="@string/cuisine_type_dummy"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/author" />
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="0dp"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:ellipsize="end"
-        android:focusable="true"
+        android:gravity="start"
+        android:padding="@dimen/small_spacing"
         android:singleLine="true"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/type"
-        app:layout_constraintTop_toBottomOf="@id/type" />
+        android:text="@string/cuisine_type_dummy"
+        app:layout_constraintEnd_toStartOf="@id/favoriteButton"
+        app:layout_constraintStart_toEndOf="@id/text_field_3"
+        app:layout_constraintTop_toTopOf="@id/text_field_3" />
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/options"
-        android:layout_width="wrap_content"
+        android:id="@+id/favoriteButton"
+        style="@style/Widget.AppTheme.LikeCheckbox"
+        android:layout_width="36dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/options_description"
-        app:icon="@drawable/ic_options_24dp"
-        app:iconGravity="end"
-        app:iconTint="@color/black"
+        android:checkable="true"
+        android:clickable="true"
+        android:contentDescription="@string/it_is_favorite_button_description"
+        android:focusable="true"
+        app:icon="@drawable/ic_favorites_24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/author" />
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/favoriteButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="4dp"-->
-<!--        android:backgroundTint="@android:color/transparent"-->
-<!--        android:clickable="true"-->
-<!--        android:contentDescription="@string/it_is_favorite_button_description"-->
-<!--        android:src="@drawable/ic_favorites_border_24dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@id/content" />-->
-
-    <androidx.constraintlayout.widget.Barrier
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/steps_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/content"/>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomToolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu_view" />
+        app:layout_constraintTop_toBottomOf="@id/type" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

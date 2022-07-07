@@ -1,16 +1,20 @@
 package ru.netology.recipenebook.db
 
+
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import ru.netology.recipenebook.dao.*
 
 @Database(
-    entities = [RecipeEntity::class],
-    version = 1
+    entities = [RecCategoryEntity::class, RecipeEntity::class, RecStepEntity::class],
+    version = 3
 )
 abstract class AppDb : RoomDatabase() {
-    abstract val recipeDao: RecipeDao
+    abstract val categoryDao: CategoryDao
+    abstract val recipeDao: RecipesDao
+    abstract val recStepsDao: RecStepsDao
 
     companion object {
         @Volatile
@@ -22,8 +26,12 @@ abstract class AppDb : RoomDatabase() {
             }
         }
 
-        private fun buildDatabase(context: Context) = Room.databaseBuilder(
-            context, AppDb::class.java, "app.db"
-        ).allowMainThreadQueries().build()
+        private fun buildDatabase(context: Context): AppDb {
+            return Room.databaseBuilder(context, AppDb::class.java, "app.db")
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+        }
     }
+
 }
