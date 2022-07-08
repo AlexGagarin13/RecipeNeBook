@@ -95,13 +95,6 @@ class RecipeShowFragment : Fragment() {
             findNavController().navigate(R.id.toRecipeCreateFragment)
         }
 
-//        viewModel.navigateToRecipeEditScreen.observe(viewLifecycleOwner) {
-//            parentFragmentManager.commit {
-//                addToBackStack(null)
-//                replace(R.id.app_fragment_container, RecipeEditFragment())
-//            }
-//        }
-
         binding?.favoriteButton?.setOnClickListener {
             val button = it as MaterialButton
             viewModel.setFavorite(recipe.id, button.isChecked)

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import ru.netology.recipenebook.R
 import ru.netology.recipenebook.adapter.RecipeAdapter
 import ru.netology.recipenebook.databinding.ShowFavoriteBinding
+
 import ru.netology.recipenebook.viewModel.RecipeViewModel
 
 class RecipeFavoriteShowFragment : Fragment() {
@@ -44,6 +45,11 @@ class RecipeFavoriteShowFragment : Fragment() {
         val adapter = RecipeAdapter(viewModel, RecipeAdapter.RECIPES_ADAPTER)
         binding?.favoriteList?.adapter = adapter
 
+        binding?.favorites?.setOnClickListener {
+            findNavController().navigate(R.id.feedFragment)
+        }
+
+
         viewModel.isFavouriteShow = true
 
         viewModel.allRecipesData.observe(viewLifecycleOwner) { recipes ->
@@ -64,10 +70,7 @@ class RecipeFavoriteShowFragment : Fragment() {
     private fun showEmptyStateFavorites() {
         if (binding == null) return
         with(binding!!) {
-            // Hide RW and filter edit field
             favoriteList.visibility = View.GONE
-
-            // SHow Empty State pic and text
             emptyIcon.visibility = View.VISIBLE
             emptyText.visibility = View.VISIBLE
         }
@@ -77,10 +80,7 @@ class RecipeFavoriteShowFragment : Fragment() {
     private fun hideEmptyStateFavorites() {
         if (binding == null) return
         with(binding!!) {
-            // Show RW and filter edit field
             favoriteList.visibility = View.VISIBLE
-
-            // Hide Empty State pic and text
             emptyIcon.visibility = View.GONE
             emptyText.visibility = View.GONE
         }

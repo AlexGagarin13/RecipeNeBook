@@ -40,25 +40,6 @@ class FeedRecipeFragment : Fragment() {
             }
         }
     }
-//
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.bottom_nav_menu, menu)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.favorites -> {
-//                findNavController().navigate(R.id.toFavoriteShowFragment)
-//                true
-//            }
-//            R.id.filter -> {
-//                findNavController().navigate(R.id.toCategoriesFeederFragment)
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,7 +58,6 @@ class FeedRecipeFragment : Fragment() {
 
         viewModel.isFavouriteShow = false
 
-        // set the filter string
         val filter = if (viewModel.recipeNamesFilter.value.isNullOrEmpty()) ""
         else viewModel.recipeNamesFilter.value
         binding?.recipeNameFilterEdit?.setText(filter)
@@ -86,7 +66,6 @@ class FeedRecipeFragment : Fragment() {
             viewModel.initCategories()
         }
 
-        // Submit the list of recipes for the RW with the account of possible applied filter
         viewModel.recData.observe(viewLifecycleOwner) { recipes ->
 
             if (recipes.isEmpty())
@@ -96,14 +75,14 @@ class FeedRecipeFragment : Fragment() {
 
             val filterRN = viewModel.recipeNamesFilter.value
             if (filterRN.isNullOrEmpty()) {
-                adapter.submitList(recipes) // No filter applied
+                adapter.submitList(recipes)
             } else {
                 adapter.submitList(recipes.filter { rec ->
-                    rec.title.contains(filterRN, true) // Apply a filer for recipes names
+                    rec.title.contains(filterRN, true)
                 })
             }
         }
-        // Update the displayed by RW list of Recipes with the search filter entered by the user
+
         viewModel.recipeNamesFilter.observe(viewLifecycleOwner) { rnFilter ->
             val recData = viewModel.recData.value
             if (rnFilter.isNullOrEmpty()) {
@@ -116,15 +95,12 @@ class FeedRecipeFragment : Fragment() {
         }
 
 
-        // Callback to monitor the filter text input by user
-        binding?.recipeNameFilterEdit?.doOnTextChanged { text, start, before, count ->
+        binding?.recipeNameFilterEdit?.doOnTextChanged { text, _, _, _ ->
             val newText = text.toString().trim()
-            // if  (newText == null ) return@doOnTextChanged
             viewModel.setRecipeNamesFilter(newText)
             Log.d("doOnTextChanged", newText)
         }
 
-        // Show recipe card fragment
         viewModel.showRecipe.observe(viewLifecycleOwner) { recipe ->
             if (recipe == null) return@observe
             findNavController().navigate(R.id.toRecipeShowCertainFragment)
@@ -135,8 +111,6 @@ class FeedRecipeFragment : Fragment() {
             findNavController().navigate(R.id.categoriesFragment)
         }
 
-
-        // Show Recipe New Fragment
         binding?.fab?.alpha = 0.90f
         binding?.fab?.setOnClickListener {
             viewModel.addNewRecipe()
@@ -156,11 +130,8 @@ class FeedRecipeFragment : Fragment() {
     private fun showEmptyState() {
         if (binding == null) return
         with(binding!!) {
-            // Hide RW and filter edit field
             list.visibility = View.GONE
             recipeNameFilterEdit.visibility = View.GONE
-
-            // SHow Empty State pic and text
             emptyIcon.visibility = View.VISIBLE
             emptyText.visibility = View.VISIBLE
         }
@@ -170,11 +141,8 @@ class FeedRecipeFragment : Fragment() {
     private fun hideEmptyState() {
         if (binding == null) return
         with(binding!!) {
-            // Show RW and filter edit field
             list.visibility = View.VISIBLE
             recipeNameFilterEdit.visibility = View.VISIBLE
-
-            // Hide Empty State pic and text
             emptyIcon.visibility = View.GONE
             emptyText.visibility = View.GONE
         }

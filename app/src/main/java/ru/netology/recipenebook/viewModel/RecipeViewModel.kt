@@ -37,14 +37,12 @@ class RecipeViewModel(private val inApplication: Application) :
     var isFavouriteShow: Boolean = false
 
 
-    // Categories data section
     private val categoriesRepo: CategoryRepository =
         CategoryRepositoryImplementation(AppDb.getInstance(inApplication).categoryDao)
     val catData by categoriesRepo::data
     fun saveCategory(category: RecipeCategory) = categoriesRepo.save(category)
     fun getCatNameId(id: Long) = categoriesRepo.getName(id)
 
-    // Recipes data section
     private val recipesRepo: RecipeRepository =
         RecipeRepositoryImplementation(AppDb.getInstance(inApplication).recipeDao)
     val recData by recipesRepo::data
@@ -56,15 +54,9 @@ class RecipeViewModel(private val inApplication: Application) :
     var tempRecipe: Recipe? = null
     fun saveRecipe(recipe: Recipe) = recipesRepo.save(recipe)
     fun deleteRecipe(recipe: Recipe) = recipesRepo.delete(recipe.id)
-    fun clearAllRecipes() = recipesRepo.clearAll()
-    fun getRecipesByIdList(ids: List<Long>) = recipesRepo.getRecipesList(ids)
-    fun listAllRecipes() = recipesRepo.listAllRecipes()
-    fun listAllFilteredRecipes() = recipesRepo.listAllSelectedRecipes()
 
-    // Recipe steps data section
     private val recStepsRepo: RecipeStepsRepository =
         RecipeStepsRepositoryImplementation(AppDb.getInstance(inApplication).recStepsDao)
-    val stepsFilteredData by recStepsRepo::dataFiltered
     val stepsAllData by recStepsRepo::dataAll
     val editedStepsList: MutableList<RecipeStep> = mutableListOf()
     private var editStep: RecipeStep? = null
@@ -75,28 +67,20 @@ class RecipeViewModel(private val inApplication: Application) :
         editStep = null
     }
 
-    fun getStepsWithRecId(id: Long) = recStepsRepo.getStepsListWithRecId(id)
-
     fun setEditedStepsPicture(picUri: Uri?) {
-        // Basic checks
         val step = chooseThePicture.value ?: return
         if (picUri == null) return
 
-        val stepId = step.id //This function is called from inside the observer of chooseThePicture
-
         stepUri = picUri
 
-        // Extract the bitmap
         val inputStream = inApplication.contentResolver.openInputStream(picUri)
         val drawable = Drawable.createFromStream(inputStream, stepUri.toString())
         val bitmap = (drawable as BitmapDrawable).bitmap
 
-        // arrange a file for it in drawable folder
         val timeMills = System.currentTimeMillis()
-        val fileName: String = "picture_$timeMills.jpg"
+        val fileName = "picture_$timeMills.jpg"
         val fos = inApplication.openFileOutput(fileName, Context.MODE_PRIVATE)
 
-        // write bitmap to this file
         try {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
             fos.flush()
@@ -104,13 +88,10 @@ class RecipeViewModel(private val inApplication: Application) :
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
-        // save step with picture name
         editStep = step.copy(picture = fileName, pUri = picUri)
         saveStep(editStep!!)
     }
 
-    // Events in UI
     val navigateToNewStepEdit = SingleLiveEvent<Unit>()
     val chooseThePicture = SingleLiveEvent<RecipeStep?>()
 
@@ -161,8 +142,6 @@ class RecipeViewModel(private val inApplication: Application) :
         isNewRecipe = false
     }
 
-
-    // Helper interface methods for use in RW adapter
     override fun onRecipeClicked(recipe: Recipe?) {
         showRecipe.value = recipe
     }
@@ -216,17 +195,13 @@ class RecipeViewModel(private val inApplication: Application) :
             }
         }
 
-        // get recipes steps list of lists, to avoid cyclic re-write of recipe id into the step!
-        // here, it is the same order of index as in the next "forEach"
         val listOfLists: MutableList<List<RecipeStep>> = mutableListOf()
         updatedList.forEach { rwRecipe ->
             listOfLists.add(recStepsRepo.getStepsListWithRecId(rwRecipe.id))
         }
 
-        // now, save new order in DB
         updatedList.forEachIndexed { index, rwRecipe ->
             val rec = getRecipeById(inListIds[index])
-                ?: return false // get the current item from DB with this ID
             val updatedRec = rwRecipe.copy(id = rec.id)
             recipesRepo.update(updatedRec)
 
@@ -247,7 +222,7 @@ class RecipeViewModel(private val inApplication: Application) :
         val minIndex = min(dragFrom, dragTo)
         val maxIndex = max(dragFrom, dragTo)
         val rwSubList = list.subList(minIndex, maxIndex + 1)
-        val inListIds = rwSubList.map { it.id }.sorted() //order of IDs in db
+        val inListIds = rwSubList.map { it.id }.sorted()
 
         if (inListIds.size != rwSubList.size) return
 
@@ -256,7 +231,7 @@ class RecipeViewModel(private val inApplication: Application) :
         if (upDownMovement) {
             val rwlSize = rwSubList.size
             val firstToLast = rwSubList[0]
-            rwSubList.forEachIndexed { index, recipe ->
+            rwSubList.forEachIndexed { index, _ ->
                 if (index == rwlSize - 1) {
                     updatedList.add(firstToLast)
                 } else {
@@ -268,7 +243,7 @@ class RecipeViewModel(private val inApplication: Application) :
         if (downUpMovement) {
             val rwlSize = rwSubList.size
             val lastToFirst = rwSubList[rwlSize - 1]
-            rwSubList.forEachIndexed { index, recipe ->
+            rwSubList.forEachIndexed { index, _ ->
                 if (index == 0) {
                     updatedList.add(lastToFirst)
                 } else {
@@ -278,15 +253,11 @@ class RecipeViewModel(private val inApplication: Application) :
         }
 
         updatedList.forEachIndexed { index, rwStep ->
-            val step = getStepById(inListIds[index]) // get the current item from DB with this ID
+            val step = getStepById(inListIds[index])
             val updatedStep = rwStep.copy(id = step.id)
             recStepsRepo.updateStep(updatedStep)
         }
 
-    }
-
-    fun updateRecIdForStep(oldId: Long, newId: Long) {
-        recStepsRepo.update(oldId, newId)
     }
 
     fun addNewEditedStep() {
@@ -310,8 +281,6 @@ class RecipeViewModel(private val inApplication: Application) :
     override fun getNumberOfSelectedCategories(): Int {
         return categoriesRepo.getNumberOfSelectedCategories()
     }
-
-    fun deleteAllCategories() = categoriesRepo.deleteAllCategories()
 
     override fun setCategoryVisible(id: Long) {
         categoriesRepo.setVisible(id)
@@ -398,10 +367,9 @@ class RecipeViewModel(private val inApplication: Application) :
         val bitmap = tempBitMap
 
         val timeMills = System.currentTimeMillis()
-        val fileName: String = "picture_" + timeMills.toString() + ".jpg"
+        val fileName: String = "picture_$timeMills.jpg"
         val fos = inApplication.openFileOutput(fileName, Context.MODE_PRIVATE)
 
-        // write bitmap to this file
         try {
             bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, fos)
             fos.flush()
@@ -409,8 +377,6 @@ class RecipeViewModel(private val inApplication: Application) :
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
-        // save step with picture name
         editStep = step.copy(picture = fileName, pUri = null)
         saveStep(editStep!!)
         tempBitMap = null

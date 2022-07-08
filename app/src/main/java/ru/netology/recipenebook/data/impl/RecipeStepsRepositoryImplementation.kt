@@ -56,5 +56,4 @@ class RecipeStepsRepositoryImplementation(private val dao: RecStepsDao) : Recipe
     override fun updateStep(step: RecipeStep) {
         dao.insert(step.toEntity())
     }
-
 }

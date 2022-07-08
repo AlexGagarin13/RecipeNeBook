@@ -59,7 +59,7 @@
         tools:layout="@layout/show_favorite">
         <action
             android:id="@+id/favoriteFragmentToFeedFragment"
-            app:destination="@id/recipeShowCertainFragment"/>
+            app:destination="@id/feedFragment"/>
     </fragment>
 
     <fragment

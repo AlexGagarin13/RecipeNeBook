@@ -162,7 +162,6 @@ class StepNewFragment : Fragment() {
                     if (viewModel.tempBitMap != null) viewModel.saveTempBitmapToFile()
                     if (viewModel.isNewStep && stepDiscard != null) {
                         viewModel.removeStep(stepDiscard)
-                        //viewModel.stepIdsList = viewModel.stepIdsList.filter { it != stepDiscard.id }.toMutableList()
                     }
 
                     viewModel.clearEditedStep()
@@ -173,7 +172,6 @@ class StepNewFragment : Fragment() {
             if (viewModel.tempBitMap != null) viewModel.saveTempBitmapToFile()
             if (viewModel.isNewStep && stepDiscard != null) {
                 viewModel.removeStep(stepDiscard)
-                //viewModel.stepIdsList = viewModel.stepIdsList.filter { it != stepDiscard.id }.toMutableList()
             }
             viewModel.clearEditedStep()
             findNavController().popBackStack()

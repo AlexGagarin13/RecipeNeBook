@@ -71,11 +71,12 @@
         android:id="@+id/filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
         android:clickable="true"
+        android:layout_marginEnd="@dimen/small_spacing"
         android:focusable="true"
-        app:layout_constraintBottom_toTopOf="@+id/recipe_name_filter_edit"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic__filter_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

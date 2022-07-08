@@ -4,23 +4,11 @@
     <string name="author_dummy">Author</string>
     <string name="it_is_favorite_button_description">Favorite</string>
     <string name="add_recipe">Add recipe</string>
-    <string name="clear_filter">Clear filter</string>
-    <string name="all_recipes">All Recipes</string>
     <string name="favorites">Favorites</string>
     <string name="filter">Filter</string>
     <string name="recipe_name_hint">Recipe tittle</string>
     <string name="author_hint">Author</string>
-    <string name="cooking_steps_hint">Cooking steps</string>
-    <string name="european_type">European</string>
-    <string name="asian_type">Asian</string>
-    <string name="panasian_type">Panasian</string>
-    <string name="eastern_type">Eastern</string>
-    <string name="american_type">American</string>
-    <string name="russian_type">Russian</string>
-    <string name="mediterranean_type">Mediterranean</string>
     <string name="save_button_description">Save</string>
-    <string name="apply_filters">Apply filters</string>
-    <string name="save_description">Save</string>
     <string name="remove">Remove</string>
     <string name="edit">Edit</string>
     <string name="empty_icon_description">Nothing to show</string>
@@ -29,15 +17,14 @@
     <string name="nav_main_string2">Recipe details</string>
     <string name="nav_main_string3">Recipe new / edit</string>
     <string name="nav_main_string4">New step</string>
-    <string name="recipe_new_string2">Recipe: </string>
+    <string name="recipe_new_string2">Recipe: \t</string>
     <string name="recipe_new_string4">Creating new recipe</string>
-    <string name="recipe_new_string5">Editing: </string>
+    <string name="recipe_new_string5">Editing: \t</string>
     <string name="discard">Discard</string>
     <string name="step_new_string1">Recipe step description can not be empty!</string>
     <string name="steps_adapter_string1">Are you sure to delete this step description?</string>
     <string name="steps_adapter_string2">No, let it stay</string>
     <string name="steps_adapter_string3">Yes, delete!</string>
-    <string name="cat_feeder_string1">Please use bottom menu to switch between screens!</string>
     <string name="step_new_string2">Are you sure to discard the changes? This action can NOT be restored!</string>
     <string name="step_new_string3">No, stay here</string>
     <string name="step_new_string4">Yes, discard</string>
@@ -57,4 +44,5 @@
     <string name="cat_adapter_string1">There must be at least ONE category selected!</string>
     <string name="new_step">New step</string>
     <string name="cuisine_type_dummy">Cuisine type</string>
+    <string name="to_main_screen">to main screen</string>
 </resources>

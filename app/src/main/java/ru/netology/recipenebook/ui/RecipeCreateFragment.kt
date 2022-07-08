@@ -75,7 +75,7 @@ class RecipeCreateFragment : Fragment(), AdapterView.OnItemSelectedListener {
                         isFavorite = favoriteButton.isChecked
                     ) ?: return false
 
-                    author.requestFocus() // Saving the last edited step in any case with focusChange event in StepsAdapter
+                    author.requestFocus()
 
                     viewModel.onSaveEditedRecipe(recipeSave)
                 }
@@ -105,7 +105,6 @@ class RecipeCreateFragment : Fragment(), AdapterView.OnItemSelectedListener {
     ): View? {
         _binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
 
-        // Initializing the View fields
         val recipe = viewModel.getEditedRecipe() ?: return binding?.root
         var selectedSpinner =
             viewModel.getCategoryName(recipe.type) ?: getString(R.string.recipe_new_string3)
@@ -124,7 +123,6 @@ class RecipeCreateFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 viewModel.getCategoryName(tr.type) ?: getString(R.string.recipe_new_string3)
         }
 
-        // Creating a drop down list for categories
         val spinner = binding?.categoryChoose
         val arrAdapter =
             ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item)
@@ -137,11 +135,10 @@ class RecipeCreateFragment : Fragment(), AdapterView.OnItemSelectedListener {
             spinner?.adapter = arrAdapter
             spinner?.onItemSelectedListener = this
 
-            val indx = arrAdapter.getPosition(selectedSpinner) // -1 if not found
-            spinner?.setSelection(indx) // if -1, empty value
+            val indx = arrAdapter.getPosition(selectedSpinner)
+            spinner?.setSelection(indx)
         }
 
-        // List of steps for this recipe
         val adapter = StepsAdapter(viewModel, StepsAdapter.EDIT_ADAPTER)
         binding?.stepsListNew?.adapter = adapter
 
@@ -152,7 +149,6 @@ class RecipeCreateFragment : Fragment(), AdapterView.OnItemSelectedListener {
             adapter.submitList(steps.filter { it.recipeId == recipe.id })
         }
 
-        // Button to add new step
         binding?.newStepButton?.setOnClickListener {
             viewModel.addNewEditedStep()
         }
@@ -162,7 +158,7 @@ class RecipeCreateFragment : Fragment(), AdapterView.OnItemSelectedListener {
             findNavController().navigate(R.id.toStepNewFragment)
         }
 
-        binding?.author?.doOnTextChanged { text, start, before, count ->
+        binding?.author?.doOnTextChanged { text, _, _, _ ->
             val selectedSpinner = viewModel.selectedSpinner
             val catId = viewModel.getCatIdbyName(selectedSpinner) ?: 1L
             viewModel.tempRecipe =
@@ -174,7 +170,7 @@ class RecipeCreateFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     isFavorite = false
                 )
         }
-        binding?.title?.doOnTextChanged { text, start, before, count ->
+        binding?.title?.doOnTextChanged { text, _, _, _ ->
             val selectedSpinner = viewModel.selectedSpinner
             val catId = viewModel.getCatIdbyName(selectedSpinner) ?: 1L
             viewModel.tempRecipe =
@@ -221,7 +217,6 @@ class RecipeCreateFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     }
 
-
     private fun goBackWithDialog() {
         val nameIsSame =
             viewModel.getEditedRecipe()?.title?.equals(binding?.title?.text.toString()) ?: false
@@ -232,7 +227,6 @@ class RecipeCreateFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val catId = viewModel.getCatIdbyName(selectedSpinner) ?: 1L
         val catChanged = viewModel.getEditedRecipe()?.type != catId
         val recipeDiscard = viewModel.getEditedRecipe()
-        //val addedSteps = viewModel.stepIdsList.size > 0
 
         if (!nameIsSame || !authorIsSame || catChanged) {
             MaterialAlertDialogBuilder(requireContext())
@@ -240,7 +234,6 @@ class RecipeCreateFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 .setNegativeButton(getString(R.string.recipe_new_string7)) { dialog, which ->
 
                 }.setPositiveButton(getString(R.string.recipe_new_string8)) { dialog, which ->
-                    //viewModel.deleteUnsavedSteps()
                     if (viewModel.isNewRecipe && recipeDiscard != null) viewModel.deleteRecipe(
                         recipeDiscard
                     )
@@ -248,17 +241,14 @@ class RecipeCreateFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     findNavController().popBackStack()
                 }.show()
         } else {
-            //viewModel.deleteUnsavedSteps()
             if (viewModel.isNewRecipe && recipeDiscard != null) viewModel.deleteRecipe(recipeDiscard)
             viewModel.tempRecipe = null
             findNavController().popBackStack()
         }
     }
-
     companion object {
         const val REQUEST_KEY = ".edit fragment"
         const val RESULT_KEY = ".EDIT RESULT"
         const val RESULT_VALUE = ".EDITED OK"
     }
-
 }

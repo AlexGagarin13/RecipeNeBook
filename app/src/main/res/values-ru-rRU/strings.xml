@@ -5,23 +5,11 @@
     <string name="author_dummy">Автор</string>
     <string name="it_is_favorite_button_description">Избранное</string>
     <string name="add_recipe">Добавить рецепт</string>
-    <string name="clear_filter">Очистить фильтр</string>
-    <string name="all_recipes">Все рецепты</string>
     <string name="favorites">Избранные</string>
     <string name="filter">Фильтр</string>
     <string name="recipe_name_hint">Название рецепта</string>
     <string name="author_hint">Автор</string>
-    <string name="cooking_steps_hint">Этапы приготовления </string>
-    <string name="european_type">Европейская</string>
-    <string name="asian_type">Азиатская</string>
-    <string name="panasian_type">Паназиатская</string>
-    <string name="eastern_type">Восточная</string>
-    <string name="american_type">Американская</string>
-    <string name="russian_type">Русская</string>
-    <string name="mediterranean_type">Средиземноморская</string>
     <string name="save_button_description">Сохранить</string>
-    <string name="apply_filters">Применить фильтры</string>
-    <string name="save_description">Сохранить</string>
     <string name="remove">Удалить</string>
     <string name="edit">Править</string>
     <string name="empty_icon_description">Нет рецептов</string>
@@ -30,15 +18,14 @@
     <string name="nav_main_string2">Рецепт детали</string>
     <string name="nav_main_string3">Рецепт новый / правка</string>
     <string name="nav_main_string4">Новый шаг</string>
-    <string name="recipe_new_string2">Рецепт:  </string>
+    <string name="recipe_new_string2">Рецепт:  \t</string>
     <string name="recipe_new_string4">Создание нового рецепта</string>
-    <string name="recipe_new_string5">Правка: </string>
+    <string name="recipe_new_string5">Правка: \t</string>
     <string name="discard">Удалить</string>
     <string name="step_new_string1">Описание шага не может быть пустым!</string>
     <string name="steps_adapter_string1">Действительно удалить??</string>
     <string name="steps_adapter_string2">Нет, оставить!</string>
     <string name="steps_adapter_string3">Да, удалить!</string>
-    <string name="cat_feeder_string1">Используйте нижнее меню для переключения между экранами!</string>
     <string name="step_new_string2">Действительно удалить изменения? Это нельзя будет отменить!</string>
     <string name="step_new_string3">Нет, остаться</string>
     <string name="step_new_string4">Да, удалить</string>
@@ -58,4 +45,5 @@
     <string name="cat_adapter_string1">Хотя бы одна категория должна быть выбрана!</string>
     <string name="new_step">Новый шаг</string>
     <string name="cuisine_type_dummy">Категория кухни</string>
+    <string name="to_main_screen">На главный экран</string>
 </resources>

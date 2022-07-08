@@ -23,8 +23,6 @@ class CategoriesFragment: Fragment() {
         super.onCreate(savedInstanceState)
 
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-//            Toast.makeText(context, getString(R.string.cat_feeder_string1), Toast.LENGTH_SHORT)
-//                .show()
             findNavController().popBackStack()
         }
     }
@@ -53,5 +51,4 @@ class CategoriesFragment: Fragment() {
 
         return binding?.root
     }
-
 }
