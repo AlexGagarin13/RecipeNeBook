@@ -49,7 +49,6 @@ class RecipeFavoriteShowFragment : Fragment() {
             findNavController().navigate(R.id.feedFragment)
         }
 
-
         viewModel.isFavouriteShow = true
 
         viewModel.allRecipesData.observe(viewLifecycleOwner) { recipes ->
@@ -58,6 +57,11 @@ class RecipeFavoriteShowFragment : Fragment() {
             else if (isEmptyState) hideEmptyStateFavorites()
 
             adapter.submitList(recipes.filter { it.isFavorite })
+        }
+
+        viewModel.showRecipe.observe(viewLifecycleOwner) { recipe ->
+            if (recipe == null) return@observe
+            findNavController().navigate(R.id.toRecipeShowCertainFragment)
         }
 
         viewModel.showRecipe.observe(viewLifecycleOwner) { recipe ->

@@ -60,6 +60,9 @@
         <action
             android:id="@+id/favoriteFragmentToFeedFragment"
             app:destination="@id/feedFragment"/>
+        <action
+            android:id="@+id/toRecipeShowCertainFragment"
+            app:destination="@id/recipeShowCertainFragment"/>
     </fragment>
 
     <fragment

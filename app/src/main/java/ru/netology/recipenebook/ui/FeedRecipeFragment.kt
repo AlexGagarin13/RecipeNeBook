@@ -132,6 +132,7 @@ class FeedRecipeFragment : Fragment() {
         with(binding!!) {
             list.visibility = View.GONE
             recipeNameFilterEdit.visibility = View.GONE
+            filter.visibility = View.GONE
             emptyIcon.visibility = View.VISIBLE
             emptyText.visibility = View.VISIBLE
         }
