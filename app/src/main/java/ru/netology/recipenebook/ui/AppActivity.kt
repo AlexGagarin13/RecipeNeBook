@@ -28,8 +28,8 @@ class AppActivity:AppCompatActivity() {
 
         setupActionBarWithNavController(navController)
 
+        binding.bottomNavBar.setupWithNavController(navController)
         navController.addOnDestinationChangedListener(ChangeTitlesAndSuppressUpButton())
-
     }
 
     inner class ChangeTitlesAndSuppressUpButton : NavController.OnDestinationChangedListener {
@@ -38,6 +38,7 @@ class AppActivity:AppCompatActivity() {
             destination: NavDestination,
             arguments: Bundle?
         ) {
+
             supportActionBar?.setDisplayShowHomeEnabled(false)
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
 

@@ -42,6 +42,19 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/emptyCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/empty_icon_description"
+        android:scaleType="fitStart"
+        android:src="@mipmap/ic_empty_ic_foreground"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/emptyText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/recipe_name_filter_edit"
         android:layout_width="match_parent"
@@ -63,7 +76,7 @@
         android:clickable="true"
         android:contentDescription="@string/add_recipe"
         android:focusable="true"
-        app:layout_constraintBottom_toTopOf="@id/recipe_name_filter_edit"
+        app:layout_constraintBottom_toTopOf="@id/filter"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_24dp" />
 

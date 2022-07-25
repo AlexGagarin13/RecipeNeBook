@@ -45,4 +45,6 @@
     <string name="new_step">New step</string>
     <string name="cuisine_type_dummy">Cuisine type</string>
     <string name="to_main_screen">to main screen</string>
+    <string name="item_favorites_list_string">Favorites</string>
+    <string name="item_recipes_list_string">Recipes</string>
 </resources>

@@ -21,24 +21,13 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:layout_marginStart="@dimen/common_spacing"
+        android:layout_marginEnd="@dimen/common_spacing"
         android:layout_marginTop="@dimen/small_spacing"
         android:focusable="true"
         android:text="@string/filter"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic__filter_24dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/favorites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/common_spacing"
-        android:layout_marginTop="@dimen/small_spacing"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="@string/favorites"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_favorites_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

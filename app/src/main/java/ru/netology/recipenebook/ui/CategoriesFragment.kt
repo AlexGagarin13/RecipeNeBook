@@ -44,11 +44,7 @@ class CategoriesFragment: Fragment() {
         binding?.filterOk?.setOnClickListener {
             findNavController().navigate(R.id.feedFragment)
         }
-
-        binding?.favorites?.setOnClickListener {
-            findNavController().navigate(R.id.favoriteShowFragment)
-        }
-
         return binding?.root
     }
+
 }

@@ -1,24 +1,19 @@
 package ru.netology.recipenebook.ui
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.*
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.core.view.isVisible
-import androidx.navigation.ui.setupWithNavController
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import ru.netology.recipenebook.R
 import ru.netology.recipenebook.adapter.RecipeAdapter
+import ru.netology.recipenebook.databinding.CategoriesFragmentBinding
 import ru.netology.recipenebook.databinding.FeedRecipesBinding
+
 import ru.netology.recipenebook.viewModel.RecipeViewModel
 
 class FeedRecipeFragment : Fragment() {
@@ -64,6 +59,7 @@ class FeedRecipeFragment : Fragment() {
 
         viewModel.catData.observe(viewLifecycleOwner) {
             viewModel.initCategories()
+
         }
 
         viewModel.recData.observe(viewLifecycleOwner) { recipes ->
@@ -94,7 +90,6 @@ class FeedRecipeFragment : Fragment() {
             }
         }
 
-
         binding?.recipeNameFilterEdit?.doOnTextChanged { text, _, _, _ ->
             val newText = text.toString().trim()
             viewModel.setRecipeNamesFilter(newText)
@@ -106,8 +101,7 @@ class FeedRecipeFragment : Fragment() {
             findNavController().navigate(R.id.toRecipeShowCertainFragment)
         }
 
-
-        binding?.filter?.setOnClickListener{
+        binding?.filter?.setOnClickListener {
             findNavController().navigate(R.id.categoriesFragment)
         }
 
@@ -132,12 +126,12 @@ class FeedRecipeFragment : Fragment() {
         with(binding!!) {
             list.visibility = View.GONE
             recipeNameFilterEdit.visibility = View.GONE
-            filter.visibility = View.GONE
             emptyIcon.visibility = View.VISIBLE
             emptyText.visibility = View.VISIBLE
         }
         isEmptyState = true
     }
+
 
     private fun hideEmptyState() {
         if (binding == null) return
