@@ -45,10 +45,6 @@ class RecipeFavoriteShowFragment : Fragment() {
         val adapter = RecipeAdapter(viewModel, RecipeAdapter.RECIPES_ADAPTER)
         binding?.favoriteList?.adapter = adapter
 
-        binding?.favorites?.setOnClickListener {
-            findNavController().navigate(R.id.feedFragment)
-        }
-
         viewModel.isFavouriteShow = true
 
         viewModel.allRecipesData.observe(viewLifecycleOwner) { recipes ->

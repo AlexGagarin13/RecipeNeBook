@@ -33,7 +33,7 @@
         android:id="@+id/emptyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/empty_in_favorites"
+        android:text="@string/empty_in_list"
         android:textSize="30sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,16 +43,29 @@
         tools:visibility="visible" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/emptyCategory"
+        android:id="@+id/emptyFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/empty_icon_description"
         android:scaleType="fitStart"
-        android:src="@mipmap/ic_empty_ic_foreground"
+        android:src="@mipmap/ic_empty_categories"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/emptyText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/emptyFilterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_categories"
+        android:textSize="30sp"
+        android:visibility="invisible"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emptyText"
         tools:visibility="visible" />
 
     <com.google.android.material.textfield.TextInputEditText

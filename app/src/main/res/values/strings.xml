@@ -12,7 +12,7 @@
     <string name="remove">Remove</string>
     <string name="edit">Edit</string>
     <string name="empty_icon_description">Nothing to show</string>
-    <string name="empty_in_favorites">Nothing to show</string>
+    <string name="empty_in_favorites">No favorites</string>
     <string name="search">Search</string>
     <string name="nav_main_string2">Recipe details</string>
     <string name="nav_main_string3">Recipe new / edit</string>
@@ -47,4 +47,6 @@
     <string name="to_main_screen">to main screen</string>
     <string name="item_favorites_list_string">Favorites</string>
     <string name="item_recipes_list_string">Recipes</string>
+    <string name="no_categories">Nothing found</string>
+    <string name="empty_in_list">No recipies</string>
 </resources>

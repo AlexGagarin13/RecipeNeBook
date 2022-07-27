@@ -9,9 +9,10 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.flow.callbackFlow
 import ru.netology.recipenebook.R
 import ru.netology.recipenebook.adapter.RecipeAdapter
-import ru.netology.recipenebook.databinding.CategoriesFragmentBinding
+
 import ru.netology.recipenebook.databinding.FeedRecipesBinding
 
 import ru.netology.recipenebook.viewModel.RecipeViewModel
@@ -21,7 +22,6 @@ class FeedRecipeFragment : Fragment() {
     private val viewModel by activityViewModels<RecipeViewModel>()
     private var _binding: FeedRecipesBinding? = null
     private val binding get() = _binding
-    private var isEmptyState: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,15 +59,26 @@ class FeedRecipeFragment : Fragment() {
 
         viewModel.catData.observe(viewLifecycleOwner) {
             viewModel.initCategories()
-
         }
 
         viewModel.recData.observe(viewLifecycleOwner) { recipes ->
 
-            if (recipes.isEmpty())
+            val catToShow = viewModel.catData.value?.filter { cat ->
+                cat.showOrNot
+            }?.size
+
+            if (catToShow == 7 && recipes.isEmpty()) {
                 showEmptyState()
-            else
-                if (isEmptyState) hideEmptyState()
+                hideEmptyCategory()
+            } else if (catToShow != null) {
+                if (catToShow < 7 && recipes.isEmpty()) {
+                    showEmptyCategory()
+                    hideEmptyState()
+                }
+            } else {
+                hideEmptyState()
+                hideEmptyCategory()
+            }
 
             val filterRN = viewModel.recipeNamesFilter.value
             if (filterRN.isNullOrEmpty()) {
@@ -84,9 +95,15 @@ class FeedRecipeFragment : Fragment() {
             if (rnFilter.isNullOrEmpty()) {
                 adapter.submitList(recData)
             } else {
-                adapter.submitList(recData?.filter { rec ->
+                val filtered = recData?.filter { rec ->
                     rec.title.contains(rnFilter, true)
-                })
+                }.orEmpty()
+                if (filtered.isEmpty()) {
+                    showEmptyCategory()
+                } else {
+                    hideEmptyCategory()
+                    adapter.submitList(filtered)
+                }
             }
         }
 
@@ -129,9 +146,7 @@ class FeedRecipeFragment : Fragment() {
             emptyIcon.visibility = View.VISIBLE
             emptyText.visibility = View.VISIBLE
         }
-        isEmptyState = true
     }
-
 
     private fun hideEmptyState() {
         if (binding == null) return
@@ -141,7 +156,24 @@ class FeedRecipeFragment : Fragment() {
             emptyIcon.visibility = View.GONE
             emptyText.visibility = View.GONE
         }
-        isEmptyState = false
+    }
+
+    private fun showEmptyCategory() {
+        if (binding == null) return
+        with(binding!!) {
+            list.visibility = View.GONE
+            emptyFilter.visibility = View.VISIBLE
+            emptyFilterText.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideEmptyCategory() {
+        if (binding == null) return
+        with(binding!!) {
+            list.visibility = View.VISIBLE
+            emptyFilter.visibility = View.GONE
+            emptyFilterText.visibility = View.GONE
+        }
     }
 }
 
